@@ -1,0 +1,3 @@
+{
+    "extends": ["eslint-config-leonardopn/react", "next/core-web-vitals"]
+}

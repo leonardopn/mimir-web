@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@public/*": ["./public/*"],
+            "@components/*": ["./src/components/*"],
+            "@typings/*": ["./src/@types/*"],
+            "@assets/*": ["./src/assets/*"],
+            "@configs/*": ["./src/configs/*"],
+            "@contexts/*": ["./src/contexts/*"],
+            "@errors/*": ["./src/errors/*"],
+            "@functions/*": ["./src/functions/*"],
+            "@guards/*": ["./src/guards/*"],
+            "@hooks/*": ["./src/hooks/*"],
+            "@jsons/*": ["./src/jsons/*"],
+            "@layouts/*": ["./src/layouts/*"],
+            "@locales/*": ["./src/locales/*"],
+            "@pages/*": ["./src/pages/*"],
+            "@routes/*": ["./src/routes/*"],
+            "@services/*": ["./src/service/*"],
+            "@RTK-services/*": ["./src/store/rtk/services/*"],
+            "@store/*": ["./src/store/*"],
+            "@theme/*": ["./src/theme/*"],
+            "@utils/*": ["./src/utils/*"]
+        }
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules"]
+}
