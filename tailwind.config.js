@@ -5,6 +5,7 @@ module.exports = {
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    important: "#__next",
     theme: {
         fontFamily: {
             sans: ["Roboto", "Arial", "sans-serif"],
@@ -32,6 +33,9 @@ module.exports = {
                 orange: "#ffb86c",
             },
         },
+    },
+    corePlugins: {
+        preflight: false,
     },
     plugins: [],
 };
