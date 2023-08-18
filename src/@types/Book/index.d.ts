@@ -8,9 +8,11 @@ export interface Book extends DefaultDoc {
 	author: string[];
 	publisher: string;
 	gender: BookGender[];
-	publishDate: Date;
-	about: string;
+	publishDate: Date | null;
+	description: string;
 	cover: string | null;
 	readDate: Date | null;
 	tags: string[];
+	isbn: string;
+	isbn13: string;
 }

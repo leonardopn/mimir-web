@@ -3,6 +3,7 @@
 		"Component: Card",
 		"Component: Input",
 		"Component: RHFInput",
-		"Component: NewBookForm"
+		"Component: NewBookForm",
+		"Type: Book"
 	]
 }
