@@ -1,7 +1,8 @@
 {
-    "conventionalCommits.scopes": [
-        "Component: Card",
-        "Component: Input",
-        "Component: RHFInput"
-    ]
+	"conventionalCommits.scopes": [
+		"Component: Card",
+		"Component: Input",
+		"Component: RHFInput",
+		"Component: NewBookForm"
+	]
 }
