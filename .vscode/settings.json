@@ -4,6 +4,7 @@
 		"Component: Input",
 		"Component: RHFInput",
 		"Component: NewBookForm",
-		"Type: Book"
+		"Type: Book",
+		"Component: RHFSelector"
 	]
 }
