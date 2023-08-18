@@ -1,6 +1,7 @@
 "use client";
 
 import { RHFInput } from "@components/Form/RHFInput";
+import { RHFSelector } from "@components/Form/RHFSelector";
 import { Button } from "@mui/material";
 import { Book } from "@typings/Book";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -38,6 +39,16 @@ export function NewBookForm() {
 				multiline
 				minRows={3}
 				label="Descrição"></RHFInput>
+			<RHFSelector
+				options={[]}
+				control={control}
+				name="author"
+				multiple
+				selectOnFocus
+				clearOnBlur
+				handleHomeEndKeys
+				textFieldProps={{ label: "Autores" }}
+				freeSolo></RHFSelector>
 			<Button type="submit" variant="contained">
 				Salvar
 			</Button>
