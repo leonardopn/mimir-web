@@ -6,6 +6,7 @@
 		"Component: NewBookForm",
 		"Type: Book",
 		"Component: RHFSelector",
-		"Providers: LocalizationProvider"
+		"Providers: LocalizationProvider",
+		"Component: RHFDatePicker"
 	]
 }
