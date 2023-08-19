@@ -1,8 +1,10 @@
-import "../theme/globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ReactNode } from "react";
 import ThemeRegistry from "../theme/ThemeRegistry";
+import "../theme/globals.css";
+
+import { LocalizationProvider } from "../providers/LocalizationProvider";
 
 const roboto = Roboto({
 	subsets: ["latin"],
@@ -19,7 +21,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html lang="pt-BR">
 			<body className={roboto.className} id="__next">
 				<main className="h-screen p-5 bg-slate-200">
-					<ThemeRegistry options={{ key: "css" }}>{children}</ThemeRegistry>
+					<LocalizationProvider>
+						<ThemeRegistry options={{ key: "css" }}>{children}</ThemeRegistry>
+					</LocalizationProvider>
 				</main>
 			</body>
 		</html>
