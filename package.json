@@ -16,25 +16,26 @@
         "@hookform/resolvers": "^3.2.0",
         "@mui/material": "^5.14.5",
         "@mui/x-date-pickers": "^6.11.2",
-        "@types/node": "20.5.0",
+        "@types/node": "20.5.1",
         "@types/react": "18.2.20",
         "@types/react-dom": "18.2.7",
         "autoprefixer": "10.4.15",
         "dayjs": "^1.11.9",
         "eslint": "^8.47.0",
-        "eslint-config-next": "13.4.15",
-        "next": "13.4.13",
-        "postcss": "8.4.27",
+        "eslint-config-next": "13.4.19",
+        "next": "13.4.19",
+        "postcss": "8.4.28",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-hook-form": "^7.45.4",
         "tailwind-merge": "^1.14.0",
         "tailwindcss": "3.3.3",
         "typescript": "5.1.6",
-        "zod": "^3.22.0"
+        "zod": "^3.22.2"
     },
     "devDependencies": {
         "@iconify/react": "^4.1.1",
-        "eslint-config-leonardopn": "^1.0.3"
+        "eslint-config-leonardopn": "^1.0.3",
+        "npm-check-updates": "^16.12.2"
     }
 }
