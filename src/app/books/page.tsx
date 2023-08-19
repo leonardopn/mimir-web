@@ -1,11 +1,12 @@
 import { NewBookForm } from "@components/NewBookForm";
-import { Card, TextField } from "@mui/material";
-import { useState } from "react";
+import { Card, Container } from "@mui/material";
 
 export default function Books() {
 	return (
-		<Card className="p-4">
-			<NewBookForm></NewBookForm>
-		</Card>
+		<Container className="max-w-screen-md flex items-center p-0">
+			<Card className="p-4 w-full">
+				<NewBookForm></NewBookForm>
+			</Card>
+		</Container>
 	);
 }

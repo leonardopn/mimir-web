@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="pt-BR">
 			<body className={roboto.className} id="__next">
-				<main className="h-screen p-5 bg-slate-200">
+				<main className="min-h-screen p-5 bg-slate-200">
 					<LocalizationProvider>
 						<ThemeRegistry options={{ key: "css" }}>{children}</ThemeRegistry>
 					</LocalizationProvider>
