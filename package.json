@@ -34,6 +34,7 @@
         "zod": "^3.22.0"
     },
     "devDependencies": {
+        "@iconify/react": "^4.1.1",
         "eslint-config-leonardopn": "^1.0.3"
     }
 }
