@@ -3,19 +3,24 @@
 import { RHFDatePicker } from "@components/Form/RHFDatePicker";
 import { RHFInput } from "@components/Form/RHFInput";
 import { RHFSelector } from "@components/Form/RHFSelector";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Book } from "@typings/Book";
 import { Dayjs } from "dayjs";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Icon } from "@iconify/react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface FormProps
-	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate"> {
+	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
 	publishDate: Dayjs | null;
+	cover: FileList | null;
 }
 
 export function NewBookForm() {
-	const { control, handleSubmit } = useForm<FormProps>({
+	const [coverUrl, setCoverUrl] = useState("");
+	const { control, handleSubmit, register, resetField, watch } = useForm<FormProps>({
 		defaultValues: {
 			title: "",
 			description: "",
@@ -30,9 +35,24 @@ export function NewBookForm() {
 		},
 	});
 
+	const cover = watch("cover");
+
+	function handleResetCover() {
+		resetField("cover");
+	}
+
 	const onSubmit: SubmitHandler<FormProps> = data => {
 		console.log(data);
 	};
+
+	useEffect(() => {
+		if (cover) {
+			const file = cover.item(0);
+			file && setCoverUrl(URL.createObjectURL(file));
+		} else {
+			setCoverUrl("");
+		}
+	}, [cover]);
 
 	return (
 		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -67,6 +87,19 @@ export function NewBookForm() {
 				multiline
 				minRows={3}
 				label="Descrição"></RHFInput>
+			<div className="flex gap-1 justify-between items-center">
+				<input type="file" accept="image/png, image/jpeg" {...register("cover")}></input>
+				{!!cover && (
+					<IconButton onClick={handleResetCover} color="error" size="small">
+						<Icon icon="mdi:close-circle"></Icon>
+					</IconButton>
+				)}
+			</div>
+			{!!coverUrl && (
+				<div className="flex justify-center items-center">
+					<Image src={coverUrl} width={300} height={300} alt="book cover"></Image>
+				</div>
+			)}
 			<Button type="submit" variant="contained">
 				Salvar
 			</Button>
