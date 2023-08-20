@@ -10,7 +10,7 @@ export function BooksPageList({}: BooksPageListProps) {
 	return (
 		<div className="flex gap-8 flex-wrap justify-center w-full">
 			{data?.map(book => (
-				<BookCover src={book.cover} alt={book.title + " cover"} key={book.id}></BookCover>
+				<BookCover data={book} alt={book.title + " cover"} key={book.id}></BookCover>
 			))}
 		</div>
 	);
