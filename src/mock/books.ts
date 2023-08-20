@@ -1,9 +1,8 @@
-import { Book } from "@typings/Book";
-import { v4 } from "uuid";
+import { Book, BookGender } from "@typings/Book";
 
 export const mockBooks: Book[] = [
 	{
-		id: v4(),
+		id: "1",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],
@@ -15,12 +14,12 @@ export const mockBooks: Book[] = [
 		isbn13: "978-8535932560",
 		publishDate: new Date("2019-09-30"),
 		publisher: "Companhia das Letras",
-		readDate: null,
+		readDate: new Date(),
 		gender: [],
 		tags: [],
 	},
 	{
-		id: v4(),
+		id: "2",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],
@@ -37,7 +36,7 @@ export const mockBooks: Book[] = [
 		tags: [],
 	},
 	{
-		id: v4(),
+		id: "3",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],
@@ -50,11 +49,11 @@ export const mockBooks: Book[] = [
 		publishDate: new Date("2019-09-30"),
 		publisher: "Companhia das Letras",
 		readDate: null,
-		gender: [],
+		gender: [BookGender.Romance, BookGender.Autoajuda, BookGender.Fantasia],
 		tags: [],
 	},
 	{
-		id: v4(),
+		id: "4",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],

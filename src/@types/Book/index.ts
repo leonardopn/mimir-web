@@ -1,6 +1,15 @@
 import { DefaultDoc } from "@typings/DefaultDoc";
 
-export enum BookGender {}
+export enum BookGender {
+	"Romance",
+	"Fantasia",
+	"Sci-Fi",
+	"Não ficção",
+	"Biografia",
+	"Autoajuda",
+	"Infantil",
+	"Outros",
+}
 //TODO: Adicionar mais gêneros a BookGender
 
 export interface Book extends DefaultDoc {
