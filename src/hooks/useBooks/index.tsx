@@ -1,7 +1,21 @@
 import { useAppStore } from "@store/index";
+import { useMemo } from "react";
 
-export function useBooks() {
+interface UseBooksProps {
+	id?: string;
+}
+
+export function useBooks(props?: UseBooksProps) {
 	const { books } = useAppStore();
 
-	return books;
+	const foundBook = useMemo(() => {
+		if (!props?.id) return null;
+
+		return books.data.find(book => book.id === props.id) || null;
+	}, [books.data, props?.id]);
+
+	return {
+		...books,
+		foundBook,
+	};
 }
