@@ -14,6 +14,7 @@
 		"Page: NewBook",
 		"Component: BookCover",
 		"Component: BooksPageList",
-		"Component: TopBar"
+		"Component: TopBar",
+		"Component: BookshelfPlank"
 	]
 }
