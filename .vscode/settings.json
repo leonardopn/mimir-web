@@ -13,6 +13,7 @@
 		"Page: Books",
 		"Page: NewBook",
 		"Component: BookCover",
-		"Component: BooksPageList"
+		"Component: BooksPageList",
+		"Component: TopBar"
 	]
 }
