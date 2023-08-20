@@ -12,6 +12,7 @@
 		"Hooks: useBooks",
 		"Page: Books",
 		"Page: NewBook",
-		"Component: BookCover"
+		"Component: BookCover",
+		"Component: BooksPageList"
 	]
 }
