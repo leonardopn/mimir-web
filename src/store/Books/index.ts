@@ -1,12 +1,17 @@
 import { Book } from "@typings/Book";
-import { StateCreator, create } from "zustand";
+import update from "immutability-helper";
+import { StateCreator } from "zustand";
 
-interface BooksSliceStates {
-	books: Book[];
-	addBook: (data: Book) => void;
+export interface BooksSliceState {
+	books: {
+		data: Book[];
+		addBook: (data: Book) => void;
+	};
 }
 
-export const BooksSlice: StateCreator<BooksSliceStates> = set => ({
-	books: [],
-	addBook: book => set(state => ({ books: [...state.books, book] })),
+export const BooksSlice: StateCreator<BooksSliceState> = set => ({
+	books: {
+		data: [],
+		addBook: book => set(state => update(state, { books: { data: { $push: [book] } } })),
+	},
 });

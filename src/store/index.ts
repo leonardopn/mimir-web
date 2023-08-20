@@ -1,5 +1,8 @@
 import { create } from "zustand";
+import { BooksSlice, BooksSliceState } from "./Books";
 
-interface StoreSlice {}
+export type StoreState = BooksSliceState;
 
-export const useStore = create();
+export const useAppStore = create<StoreState>()((...a) => ({
+	...BooksSlice(...a),
+}));
