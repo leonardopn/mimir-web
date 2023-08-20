@@ -11,6 +11,7 @@
 		"Slice: Books",
 		"Hooks: useBooks",
 		"Page: Books",
-		"Page: NewBook"
+		"Page: NewBook",
+		"Component: BookCover"
 	]
 }
