@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 
 export default function Books() {
 	return (
-		<Container className="max-w-screen-xl flex items-center p-0">
+		<Container className="max-w-screen-xl flex items-center">
 			<BooksPageList></BooksPageList>
 		</Container>
 	);
