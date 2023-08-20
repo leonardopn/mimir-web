@@ -11,6 +11,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useBooks } from "@hooks/useBooks";
+import { v4 } from "uuid";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -19,6 +21,7 @@ interface FormProps
 }
 
 export function NewBookForm() {
+	const { addBook, data } = useBooks();
 	const [coverUrl, setCoverUrl] = useState("");
 	const { control, handleSubmit, register, resetField, watch } = useForm<FormProps>({
 		defaultValues: {
@@ -42,7 +45,23 @@ export function NewBookForm() {
 	}
 
 	const onSubmit: SubmitHandler<FormProps> = data => {
-		console.log(data);
+		const newBook: Book = {
+			id: v4(),
+			createdAt: new Date(),
+			updatedAt: new Date(),
+			author: data.author,
+			description: data.description,
+			gender: data.gender,
+			isbn: data.isbn,
+			isbn13: data.isbn13,
+			publishDate: data.publishDate?.toDate() || null,
+			publisher: data.publisher,
+			readDate: null,
+			tags: data.tags,
+			title: data.title,
+			cover: null,
+		};
+		addBook(newBook);
 	};
 
 	useEffect(() => {
@@ -53,6 +72,8 @@ export function NewBookForm() {
 			setCoverUrl("");
 		}
 	}, [cover]);
+
+	console.log(data);
 
 	return (
 		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
