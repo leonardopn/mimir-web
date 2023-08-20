@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 		<html lang="pt-BR">
 			<body className={roboto.className} id="__next">
 				<main className="min-h-screen bg-slate-200">
-					<header className="sticky top-0">
+					<header className="sticky top-0 z-[9999]">
 						<TopBar></TopBar>
 					</header>
 					<div className="px-5 py-10">
