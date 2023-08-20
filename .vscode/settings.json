@@ -10,6 +10,7 @@
 		"Component: RHFDatePicker",
 		"Slice: Books",
 		"Hooks: useBooks",
-		"Page: Books"
+		"Page: Books",
+		"Page: NewBook"
 	]
 }
