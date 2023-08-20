@@ -1,12 +1,12 @@
 import { Book } from "@typings/Book";
-import { create } from "zustand";
+import { StateCreator, create } from "zustand";
 
-interface BooksState {
+interface BooksSliceStates {
 	books: Book[];
 	addBook: (data: Book) => void;
 }
 
-export const useBooks = create<BooksState>()(set => ({
+export const BooksSlice: StateCreator<BooksSliceStates> = set => ({
 	books: [],
 	addBook: book => set(state => ({ books: [...state.books, book] })),
-}));
+});
