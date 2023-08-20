@@ -1,0 +1,73 @@
+import { Book } from "@typings/Book";
+import { v4 } from "uuid";
+
+export const mockBooks: Book[] = [
+	{
+		id: v4(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		author: ["Sally Rooney"],
+		title: "Pessoas normais",
+		cover: "https://m.media-amazon.com/images/I/71jrp43TCcL.jpg",
+		description: `Na escola, no interior da Irlanda, Connell e Marianne fingem não se conhecer. Ele é a estrela do time de futebol, ela é solitária e preza por sua privacidade. Mas a mãe de Connell trabalha como empregada na casa dos pais de Marianne, e quando o garoto vai buscar a mãe depois do expediente, uma conexão estranha e indelével cresce entre os dois adolescentes ― contudo, um deles está determinado a esconder a relação.
+            Um ano depois, ambos estão na universidade, em Dublin. Marianne encontrou seu lugar em um novo mundo enquanto Connell fica à margem, tímido e inseguro. Ao longo dos anos da graduação, os dois permanecem próximos, como linhas que se encontram e separam conforme as oportunidades da vida. Porém, enquanto Marianne se embrenha em um espiral de autodestruição e Connell começa a duvidar do sentido de suas escolhas, eles precisam entender até que ponto estão dispostos a ir para salvar um ao outro. Uma história de amor entre duas pessoas que tentam ficar separadas, mas descobrem que isso pode ser mais difícil do que tinham imaginado.`,
+		isbn: "8535932569",
+		isbn13: "978-8535932560",
+		publishDate: new Date("2019-09-30"),
+		publisher: "Companhia das Letras",
+		readDate: null,
+		gender: [],
+		tags: [],
+	},
+	{
+		id: v4(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		author: ["Sally Rooney"],
+		title: "Pessoas normais",
+		cover: "https://m.media-amazon.com/images/I/71QE2XXoA1L.jpg",
+		description: `Na escola, no interior da Irlanda, Connell e Marianne fingem não se conhecer. Ele é a estrela do time de futebol, ela é solitária e preza por sua privacidade. Mas a mãe de Connell trabalha como empregada na casa dos pais de Marianne, e quando o garoto vai buscar a mãe depois do expediente, uma conexão estranha e indelével cresce entre os dois adolescentes ― contudo, um deles está determinado a esconder a relação.
+            Um ano depois, ambos estão na universidade, em Dublin. Marianne encontrou seu lugar em um novo mundo enquanto Connell fica à margem, tímido e inseguro. Ao longo dos anos da graduação, os dois permanecem próximos, como linhas que se encontram e separam conforme as oportunidades da vida. Porém, enquanto Marianne se embrenha em um espiral de autodestruição e Connell começa a duvidar do sentido de suas escolhas, eles precisam entender até que ponto estão dispostos a ir para salvar um ao outro. Uma história de amor entre duas pessoas que tentam ficar separadas, mas descobrem que isso pode ser mais difícil do que tinham imaginado.`,
+		isbn: "8535932569",
+		isbn13: "978-8535932560",
+		publishDate: new Date("2019-09-30"),
+		publisher: "Companhia das Letras",
+		readDate: null,
+		gender: [],
+		tags: [],
+	},
+	{
+		id: v4(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		author: ["Sally Rooney"],
+		title: "Pessoas normais",
+		cover: "https://m.media-amazon.com/images/I/91uo3ZvZcMS.jpg",
+		description: `Na escola, no interior da Irlanda, Connell e Marianne fingem não se conhecer. Ele é a estrela do time de futebol, ela é solitária e preza por sua privacidade. Mas a mãe de Connell trabalha como empregada na casa dos pais de Marianne, e quando o garoto vai buscar a mãe depois do expediente, uma conexão estranha e indelével cresce entre os dois adolescentes ― contudo, um deles está determinado a esconder a relação.
+            Um ano depois, ambos estão na universidade, em Dublin. Marianne encontrou seu lugar em um novo mundo enquanto Connell fica à margem, tímido e inseguro. Ao longo dos anos da graduação, os dois permanecem próximos, como linhas que se encontram e separam conforme as oportunidades da vida. Porém, enquanto Marianne se embrenha em um espiral de autodestruição e Connell começa a duvidar do sentido de suas escolhas, eles precisam entender até que ponto estão dispostos a ir para salvar um ao outro. Uma história de amor entre duas pessoas que tentam ficar separadas, mas descobrem que isso pode ser mais difícil do que tinham imaginado.`,
+		isbn: "8535932569",
+		isbn13: "978-8535932560",
+		publishDate: new Date("2019-09-30"),
+		publisher: "Companhia das Letras",
+		readDate: null,
+		gender: [],
+		tags: [],
+	},
+	{
+		id: v4(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		author: ["Sally Rooney"],
+		title: "Pessoas normais",
+		cover: "https://m.media-amazon.com/images/I/91YZxTeOBJL.jpg",
+		description: `Na escola, no interior da Irlanda, Connell e Marianne fingem não se conhecer. Ele é a estrela do time de futebol, ela é solitária e preza por sua privacidade. Mas a mãe de Connell trabalha como empregada na casa dos pais de Marianne, e quando o garoto vai buscar a mãe depois do expediente, uma conexão estranha e indelével cresce entre os dois adolescentes ― contudo, um deles está determinado a esconder a relação.
+            Um ano depois, ambos estão na universidade, em Dublin. Marianne encontrou seu lugar em um novo mundo enquanto Connell fica à margem, tímido e inseguro. Ao longo dos anos da graduação, os dois permanecem próximos, como linhas que se encontram e separam conforme as oportunidades da vida. Porém, enquanto Marianne se embrenha em um espiral de autodestruição e Connell começa a duvidar do sentido de suas escolhas, eles precisam entender até que ponto estão dispostos a ir para salvar um ao outro. Uma história de amor entre duas pessoas que tentam ficar separadas, mas descobrem que isso pode ser mais difícil do que tinham imaginado.`,
+		isbn: "8535932569",
+		isbn13: "978-8535932560",
+		publishDate: new Date("2019-09-30"),
+		publisher: "Companhia das Letras",
+		readDate: null,
+		gender: [],
+		tags: [],
+	},
+];
