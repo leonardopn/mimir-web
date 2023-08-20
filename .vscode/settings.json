@@ -8,6 +8,7 @@
 		"Component: RHFSelector",
 		"Providers: LocalizationProvider",
 		"Component: RHFDatePicker",
-		"Slice: Books"
+		"Slice: Books",
+		"Hooks: useBooks"
 	]
 }
