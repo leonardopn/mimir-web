@@ -16,6 +16,7 @@
 		"Component: BooksPageList",
 		"Component: TopBar",
 		"Component: BookshelfPlank",
-		"Page: BookView"
+		"Page: BookView",
+		"Page: Home"
 	]
 }
