@@ -31,8 +31,7 @@ export default function BookView({ params: { id } }: BookViewProps) {
 				<div className="lg:sticky lg:top-24 h-fit w-fit">
 					<BookCover data={foundBook} disableLink />
 				</div>
-
-				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800">
+				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800 min-h-[400px] justify-between">
 					<header className="relative pr-10">
 						<Typography variant="h1" className="text-3xl font-bold">
 							{foundBook.title}
