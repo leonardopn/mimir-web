@@ -1,5 +1,6 @@
 "use client";
 import { BookCover } from "@components/BookCover";
+import { Breadcrumbs } from "@components/Breadcrumbs";
 import { useBooks } from "@hooks/useBooks";
 import { Icon } from "@iconify/react";
 import { Card, Chip, CircularProgress, Container, Tooltip, Typography } from "@mui/material";
@@ -18,8 +19,15 @@ export default function BookView({ params: { id } }: BookViewProps) {
 	if (!foundBook) return <CircularProgress />;
 
 	return (
-		<Container className="">
-			<div className="flex flex-col lg:flex-row gap-5 justify-center items-center lg:items-start flex-wrap">
+		<Container>
+			<header className="mb-8">
+				<Breadcrumbs
+					links={[
+						{ label: "Livros", href: "/books" },
+						{ label: foundBook.title },
+					]}></Breadcrumbs>
+			</header>
+			<main className="flex flex-col lg:flex-row gap-5 justify-center items-center lg:items-start flex-wrap">
 				<div className="lg:sticky lg:top-24 h-fit w-fit">
 					<BookCover data={foundBook} disableLink />
 				</div>
@@ -85,7 +93,7 @@ export default function BookView({ params: { id } }: BookViewProps) {
 						</div>
 					</div>
 				</Card>
-			</div>
+			</main>
 		</Container>
 	);
 }
