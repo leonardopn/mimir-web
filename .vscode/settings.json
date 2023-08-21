@@ -18,6 +18,7 @@
 		"Component: BookshelfPlank",
 		"Page: BookView",
 		"Page: Home",
-		"Component: Breadcrumbs"
+		"Component: Breadcrumbs",
+		"Component: FloatingAddButton"
 	]
 }
