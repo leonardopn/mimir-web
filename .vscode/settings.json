@@ -17,6 +17,7 @@
 		"Component: TopBar",
 		"Component: BookshelfPlank",
 		"Page: BookView",
-		"Page: Home"
+		"Page: Home",
+		"Component: Breadcrumbs"
 	]
 }
