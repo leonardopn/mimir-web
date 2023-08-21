@@ -19,6 +19,7 @@
 		"Page: BookView",
 		"Page: Home",
 		"Component: Breadcrumbs",
-		"Component: FloatingAddButton"
+		"Component: FloatingAddButton",
+		"Service: Firebase"
 	]
 }
