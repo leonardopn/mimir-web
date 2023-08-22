@@ -1,12 +1,27 @@
 import { Book } from "@typings/Book";
 
 import FirebaseService from "..";
+import { v4 } from "uuid";
 
+interface INewBookData extends Omit<Book, "id" | "cover"> {
+	cover: File | null;
+}
 export class BookService extends FirebaseService {
-	static async newBook(data: Omit<Book, "id">): Promise<Book> {
+	static async newBook(data: INewBookData): Promise<Book> {
 		const newDoc = this.generateDoc(["users", "?", "books"], [data.userId]);
 
-		const bookToAdd: Book = { ...data, id: newDoc.id };
+		const { cover, ...dataRest } = data;
+
+		const bookToAdd: Book = { ...dataRest, id: newDoc.id, cover: null };
+
+		if (cover) {
+			const uploadedFile = await this.uploadFirebaseFile(
+				cover,
+				["users", "?", "books", "?", "?"],
+				[data.userId, newDoc.id, v4()]
+			);
+			bookToAdd.cover = { url: uploadedFile.url, ref: uploadedFile.ref.fullPath };
+		}
 
 		await this.firestore.setDoc(newDoc, bookToAdd);
 

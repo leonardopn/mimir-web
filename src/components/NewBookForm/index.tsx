@@ -57,7 +57,7 @@ export function NewBookForm() {
 			readDate: null,
 			tags: data.tags,
 			title: data.title,
-			cover: null,
+			cover: data.cover?.item(0) || null,
 			userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 		});
 
@@ -116,7 +116,7 @@ export function NewBookForm() {
 			</div>
 			{!!coverUrl && (
 				<div className="flex justify-center items-center">
-					<Image src={coverUrl} width={300} height={300} alt="book cover"></Image>
+					<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
 				</div>
 			)}
 			<Button type="submit" variant="contained">
