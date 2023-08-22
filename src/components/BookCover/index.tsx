@@ -9,7 +9,7 @@ interface BookCoverProps {
 }
 
 export function BookCover({ data, alt, disableLink }: BookCoverProps) {
-	const srcToUse = data.cover || "/book-cover-placeholder.png";
+	const srcToUse = data.cover?.url || "/book-cover-placeholder.png";
 
 	const content = (
 		<Image
