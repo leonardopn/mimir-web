@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import * as firestore from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import * as storage from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
@@ -48,6 +49,7 @@ export function firebaseQueryBuilder(fields: DB_LOCATIONS[], values?: (string | 
 
 export default class FirebaseService {
 	protected static firestore = firestore;
+	protected static storage = storage;
 
 	/**
 	 * @description Gera um novo documento vazio no firestore
@@ -62,5 +64,22 @@ export default class FirebaseService {
 		return doc(
 			collection(DB, firebaseQueryBuilder(location, values))
 		) as firestore.DocumentReference<T>;
+	}
+
+	static async uploadFirebaseFile(
+		file: File,
+		location: DB_LOCATIONS[],
+		values?: (string | number)[]
+	) {
+		const fileBuffer = await file.arrayBuffer();
+		const storageRef = ref(STORAGE, firebaseQueryBuilder(location, values));
+
+		const { ref: fileRef } = await this.storage.uploadBytes(storageRef, fileBuffer, {
+			contentType: file.type,
+		});
+
+		const url = await this.storage.getDownloadURL(fileRef);
+
+		return { ref: fileRef, url };
 	}
 }
