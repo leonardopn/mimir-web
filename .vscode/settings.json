@@ -20,6 +20,7 @@
 		"Page: Home",
 		"Component: Breadcrumbs",
 		"Component: FloatingAddButton",
-		"Service: Firebase"
+		"Service: Firebase",
+		"Service: Book"
 	]
 }

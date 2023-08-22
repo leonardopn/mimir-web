@@ -3,16 +3,15 @@
 import { RHFDatePicker } from "@components/Form/RHFDatePicker";
 import { RHFInput } from "@components/Form/RHFInput";
 import { RHFSelector } from "@components/Form/RHFSelector";
+import { useBooks } from "@hooks/useBooks";
+import { Icon } from "@iconify/react";
 import { Button, IconButton } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
 import { Book } from "@typings/Book";
 import { Dayjs } from "dayjs";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useBooks } from "@hooks/useBooks";
-import { v4 } from "uuid";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { BookService } from "../../services/firebase/Book";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -44,9 +43,8 @@ export function NewBookForm() {
 		resetField("cover");
 	}
 
-	const onSubmit: SubmitHandler<FormProps> = data => {
-		const newBook: Book = {
-			id: v4(),
+	const onSubmit: SubmitHandler<FormProps> = async data => {
+		const bookInDB = await BookService.newBook({
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			author: data.author,
@@ -60,8 +58,10 @@ export function NewBookForm() {
 			tags: data.tags,
 			title: data.title,
 			cover: null,
-		};
-		addBook(newBook);
+			userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
+		});
+
+		addBook(bookInDB);
 	};
 
 	useEffect(() => {
@@ -72,8 +72,6 @@ export function NewBookForm() {
 			setCoverUrl("");
 		}
 	}, [cover]);
-
-	console.log(data);
 
 	return (
 		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
