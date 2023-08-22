@@ -20,7 +20,10 @@ export interface Book extends DefaultDoc {
 	gender: BookGender[];
 	publishDate: Date | null;
 	description: string;
-	cover: string | null;
+	cover: {
+		url: string;
+		ref: string;
+	} | null;
 	readDate: Date | null;
 	tags: string[];
 	isbn: string;
