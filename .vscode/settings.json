@@ -21,6 +21,7 @@
 		"Component: Breadcrumbs",
 		"Component: FloatingAddButton",
 		"Service: Firebase",
-		"Service: Book"
+		"Service: Book",
+		"Config: Next"
 	]
 }

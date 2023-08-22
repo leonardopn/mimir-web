@@ -7,6 +7,11 @@ const nextConfig = {
 				hostname: "m.media-amazon.com",
 				port: "",
 			},
+			{
+				protocol: "https",
+				hostname: "firebasestorage.googleapis.com",
+				port: "",
+			},
 		],
 	},
 };
