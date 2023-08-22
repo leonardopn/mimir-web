@@ -14,6 +14,7 @@ export enum BookGender {
 
 export interface Book extends DefaultDoc {
 	title: string;
+	userId: string;
 	author: string[];
 	publisher: string;
 	gender: BookGender[];

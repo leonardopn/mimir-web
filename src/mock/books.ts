@@ -17,9 +17,11 @@ export const mockBooks: Book[] = [
 		readDate: new Date(),
 		gender: [],
 		tags: [],
+		userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 	},
 	{
 		id: "2",
+		userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],
@@ -39,6 +41,7 @@ export const mockBooks: Book[] = [
 		id: "3",
 		createdAt: new Date(),
 		updatedAt: new Date(),
+		userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 		author: ["Sally Rooney"],
 		title: "Pessoas normais",
 		cover: "https://m.media-amazon.com/images/I/91uo3ZvZcMS.jpg",
@@ -54,6 +57,7 @@ export const mockBooks: Book[] = [
 	},
 	{
 		id: "4",
+		userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		author: ["Sally Rooney"],
