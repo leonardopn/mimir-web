@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import * as firestore from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
@@ -14,12 +13,54 @@ const firebaseConfig = {
 	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const { collection, doc, getFirestore } = firestore;
 
-export const ANALYTICS = getAnalytics(firebaseApp);
+const firebaseApp = initializeApp(firebaseConfig);
 
 export const AUTH = getAuth(firebaseApp);
 
 export const DB = getFirestore(firebaseApp);
 
 export const STORAGE = getStorage(firebaseApp);
+
+export type DB_LOCATIONS = "users" | "books" | "?";
+
+export function firebaseQueryBuilder(fields: DB_LOCATIONS[], values?: (string | number)[]) {
+	const numberOfQuestions = fields.filter(field => field === "?").length;
+
+	if (numberOfQuestions > 0 && !values) {
+		throw new Error("Você deve fornecer valores para todos os pontos de interrogação");
+	}
+
+	if (numberOfQuestions !== (values?.length || 0)) {
+		throw new Error(
+			"O número de valores deve corresponder ao número de pontos de interrogação"
+		);
+	}
+
+	const buildedFields = fields.map(field => {
+		if (field !== "?") return field;
+		return `${values?.shift()}`;
+	});
+
+	return buildedFields.join("/");
+}
+
+export default class FirebaseService {
+	protected static firestore = firestore;
+
+	/**
+	 * @description Gera um novo documento vazio no firestore
+	 * @param location Array com as collections possíveis
+	 * @param values  Array com os valores para substituir os pontos de interrogação
+	 * @returns Uma ref de um novo documento do firebase
+	 */
+	static generateDoc<T extends firestore.DocumentData>(
+		location: DB_LOCATIONS[],
+		values?: (string | number)[]
+	) {
+		return doc(
+			collection(DB, firebaseQueryBuilder(location, values))
+		) as firestore.DocumentReference<T>;
+	}
+}
