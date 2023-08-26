@@ -27,4 +27,12 @@ export class BookService extends FirebaseService {
 
 		return bookToAdd;
 	}
+
+	static async getAll() {
+		const booksRef = this.getCollectionRef<Book>(
+			["users", "?", "books"],
+			["NtmnrIyP6NgiFn90i9TfLfOqegu1"]
+		);
+		return (await this.firestore.getDocs(booksRef)).docs.map(doc => doc.data());
+	}
 }
