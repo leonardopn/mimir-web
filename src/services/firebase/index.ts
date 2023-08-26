@@ -66,6 +66,35 @@ export default class FirebaseService {
 		) as firestore.DocumentReference<T>;
 	}
 
+	/**
+	 * @description traz a referência de um documento no firestore
+	 * @param location Array com as collections possíveis
+	 * @param values  Array com os valores para substituir os pontos de interrogação
+	 * @returns Uma ref de um documento do firebase
+	 */
+	static getDocRef<T extends firestore.DocumentData>(
+		location: DB_LOCATIONS[],
+		values?: (string | number)[]
+	) {
+		return doc(DB, firebaseQueryBuilder(location, values)) as firestore.DocumentReference<T>;
+	}
+
+	/**
+	 * @description traz a referência de uma coleção no firestore
+	 * @param location Array com as collections possíveis
+	 * @param values  Array com os valores para substituir os pontos de interrogação
+	 * @returns Uma ref de uma coleção do firebase
+	 */
+	static getCollectionRef<T extends firestore.DocumentData>(
+		location: DB_LOCATIONS[],
+		values?: (string | number)[]
+	) {
+		return collection(
+			DB,
+			firebaseQueryBuilder(location, values)
+		) as firestore.CollectionReference<T>;
+	}
+
 	static async uploadFirebaseFile(
 		file: File,
 		location: DB_LOCATIONS[],
