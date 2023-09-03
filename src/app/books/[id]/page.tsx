@@ -51,15 +51,14 @@ export default function BookView({ params: { id } }: BookViewProps) {
 									className="text-green-500 h-10 w-10 absolute top-0 right-0"></Icon>
 							</Tooltip>
 						)}
+						{!!foundBook.gender.length && (
+							<div className="flex flex-wrap gap-2 mt-2">
+								{foundBook.gender.map((gender, index) => (
+									<Chip key={index} label={BookGender[gender]}></Chip>
+								))}
+							</div>
+						)}
 					</header>
-
-					{!!foundBook.gender.length && (
-						<div className="flex flex-wrap gap-2">
-							{foundBook.gender.map((gender, index) => (
-								<Chip key={index} label={BookGender[gender]}></Chip>
-							))}
-						</div>
-					)}
 
 					<Typography className="text-base text-justify text-gray-600">
 						{foundBook.description}
