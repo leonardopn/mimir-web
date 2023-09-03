@@ -1,6 +1,7 @@
 "use client";
 import { BookCover } from "@components/BookCover";
 import { Breadcrumbs } from "@components/Breadcrumbs";
+import { LoadingFullPage } from "@components/LoadingFullPage";
 import { useBooks } from "@hooks/useBooks";
 import { Icon } from "@iconify/react";
 import { Card, Chip, CircularProgress, Container, Tooltip, Typography } from "@mui/material";
@@ -14,9 +15,9 @@ interface BookViewProps {
 }
 
 export default function BookView({ params: { id } }: BookViewProps) {
-	const { foundBook } = useBooks({ id });
+	const { foundBook, isFetching } = useBooks({ id });
 
-	if (!foundBook) return <CircularProgress />;
+	if (!foundBook || isFetching) return <LoadingFullPage className="m-auto" />;
 
 	return (
 		<Container>
