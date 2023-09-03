@@ -1,12 +1,22 @@
 import { Book } from "@typings/Book";
 import Image from "next/image";
 import Link from "next/link";
+import { tv } from "tailwind-variants";
 
 interface BookCoverProps {
 	data: Book;
 	alt?: string;
 	disableLink?: boolean;
 }
+
+const coverStyle = tv({
+	base: "rounded-xl shadow-xl ",
+	variants: {
+		clickable: {
+			true: "hover:scale-105 transition-transform cursor-pointer",
+		},
+	},
+});
 
 export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 	const srcToUse = data.cover?.url || "/book-cover-placeholder.png";
@@ -18,7 +28,7 @@ export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 			alt={alt || "capa do livro"}
 			width={250}
 			height={400}
-			className="rounded-xl shadow-xl hover:scale-105 transition-transform cursor-pointer"></Image>
+			className={coverStyle({ clickable: !disableLink })}></Image>
 	);
 
 	if (disableLink) {
