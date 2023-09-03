@@ -22,6 +22,7 @@
 		"Component: FloatingAddButton",
 		"Service: Firebase",
 		"Service: Book",
-		"Config: Next"
+		"Config: Next",
+		"Component: LoadingFullPage"
 	]
 }
