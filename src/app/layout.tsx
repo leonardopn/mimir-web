@@ -21,11 +21,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="pt-BR">
 			<body className={roboto.className} id="__next">
-				<main className="min-h-screen bg-slate-200">
+				<main className="min-h-screen bg-slate-200 flex flex-col">
 					<header className="sticky top-0 z-[9999]">
 						<TopBar></TopBar>
 					</header>
-					<div className="px-5 py-10">
+					<div className="px-5 py-10 flex-1 flex flex-col">
 						<LocalizationProvider>
 							<ThemeRegistry options={{ key: "css" }}>{children}</ThemeRegistry>
 						</LocalizationProvider>
