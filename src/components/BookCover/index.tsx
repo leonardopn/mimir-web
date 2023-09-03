@@ -1,3 +1,4 @@
+import { BookRibbonReadStatus } from "@components/BookRibbon/BookRibbonReadStatus";
 import { Book } from "@typings/Book";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,11 +10,11 @@ interface BookCoverProps {
 	disableLink?: boolean;
 }
 
-const coverStyle = tv({
-	base: "rounded-xl shadow-xl ",
+const ContainerStyle = tv({
+	base: "relative w-fit h-fit",
 	variants: {
 		clickable: {
-			true: "hover:scale-105 transition-transform cursor-pointer",
+			true: "hover:scale-105 transition-transform cursor-pointer ",
 		},
 	},
 });
@@ -28,16 +29,19 @@ export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 			alt={alt || "capa do livro"}
 			width={250}
 			height={400}
-			className={coverStyle({ clickable: !disableLink })}></Image>
+			className="rounded-xl shadow-xl"></Image>
 	);
 
-	if (disableLink) {
-		return content;
-	}
-
 	return (
-		<Link href={`/books/${data.id}`} className="w-fit h-fit">
-			{content}
-		</Link>
+		<div className={ContainerStyle({ clickable: !disableLink })}>
+			<BookRibbonReadStatus readDate={data.readDate}></BookRibbonReadStatus>
+			{disableLink ? (
+				content
+			) : (
+				<Link href={`/books/${data.id}`} className="w-fit h-fit">
+					{content}
+				</Link>
+			)}
+		</div>
 	);
 }
