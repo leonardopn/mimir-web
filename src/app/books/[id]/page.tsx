@@ -40,17 +40,7 @@ export default function BookView({ params: { id } }: BookViewProps) {
 						<Typography variant="h2" className="text-xl font-medium text-gray-600">
 							{foundBook.author.join(", ")}
 						</Typography>
-						{!!foundBook.readDate && (
-							<Tooltip
-								title={`Lido em: ${dayjs(foundBook.readDate).format(
-									"ddd, DD MMM YYYY"
-								)}`}
-								arrow>
-								<Icon
-									icon="mdi:check-decagram"
-									className="text-green-500 h-10 w-10 absolute top-0 right-0"></Icon>
-							</Tooltip>
-						)}
+
 						{!!foundBook.gender.length && (
 							<div className="flex flex-wrap gap-2 mt-2">
 								{foundBook.gender.map((gender, index) => (
