@@ -42,7 +42,7 @@ export const BooksSlice: StateCreator<StoreState, [], [], BooksSliceState> = set
 	};
 
 	return {
-		data: [...mockBooks],
+		data: [],
 		initialFetchWasMade: false,
 		initialStateHasBeenLoaded: false,
 		isFetching: false,
