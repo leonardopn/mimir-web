@@ -9,7 +9,7 @@ export function LoadingFullPage({ className }: LoadingFullPageProps) {
 	return (
 		<div
 			className={twMerge(
-				"flex flex-col justify-center items-center gap-4 w-fit h-fit",
+				"flex flex-col justify-center items-center gap-4 w-fit h-fit m-auto",
 				className
 			)}>
 			<CircularProgress className="text-primary"></CircularProgress>

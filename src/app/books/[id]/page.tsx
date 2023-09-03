@@ -17,7 +17,7 @@ interface BookViewProps {
 export default function BookView({ params: { id } }: BookViewProps) {
 	const { foundBook, isFetching } = useBooks({ id });
 
-	if (!foundBook || isFetching) return <LoadingFullPage className="m-auto" />;
+	if (!foundBook || isFetching) return <LoadingFullPage />;
 
 	return (
 		<Container>

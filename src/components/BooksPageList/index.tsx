@@ -3,7 +3,6 @@
 import { BookCover } from "@components/BookCover";
 import { LoadingFullPage } from "@components/LoadingFullPage";
 import { useBooks } from "@hooks/useBooks";
-import { useMemo } from "react";
 
 interface BooksPageListProps {}
 

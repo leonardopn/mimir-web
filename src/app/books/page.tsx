@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 
 export default function Books() {
 	return (
-		<Container className="max-w-screen-xl flex flex-1 w-full items-center justify-center">
+		<Container className="max-w-screen-xl flex flex-1 w-full">
 			<BooksPageList></BooksPageList>
 			<FloatingAddButton tip="Adicionar livro" link="/books/new"></FloatingAddButton>
 		</Container>
