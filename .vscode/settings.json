@@ -23,6 +23,7 @@
 		"Service: Firebase",
 		"Service: Book",
 		"Config: Next",
-		"Component: LoadingFullPage"
+		"Component: LoadingFullPage",
+		"Component: BookRibbon"
 	]
 }
