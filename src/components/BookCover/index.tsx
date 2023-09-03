@@ -13,6 +13,7 @@ export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 
 	const content = (
 		<Image
+			priority={true}
 			src={srcToUse}
 			alt={alt || "capa do livro"}
 			width={250}
@@ -24,5 +25,9 @@ export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 		return content;
 	}
 
-	return <Link href={`/books/${data.id}`}>{content}</Link>;
+	return (
+		<Link href={`/books/${data.id}`} className="w-fit h-fit">
+			{content}
+		</Link>
+	);
 }
