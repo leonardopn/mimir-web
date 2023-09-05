@@ -14,24 +14,24 @@ export enum BookGender {
 //TODO: Adicionar mais gêneros a BookGender
 
 export class Book<Variant extends InterfaceVariant = "LOCAL"> implements DefaultDoc<Variant> {
-	id!: string;
-	createdAt!: AppDate<Variant>;
-	updatedAt!: AppDate<Variant>;
-	title!: string;
-	userId!: string;
-	author!: string[];
-	publisher!: string;
-	gender!: BookGender[];
-	publishDate!: AppDate<Variant> | null;
-	description!: string;
-	cover!: {
+	public id!: string;
+	public createdAt!: AppDate<Variant>;
+	public updatedAt!: AppDate<Variant>;
+	public title!: string;
+	public userId!: string;
+	public author!: string[];
+	public publisher!: string;
+	public gender!: BookGender[];
+	public publishDate!: AppDate<Variant> | null;
+	public description!: string;
+	public cover!: {
 		url: string;
 		ref: string;
 	} | null;
-	readDate!: AppDate<Variant> | null;
-	tags!: string[];
-	isbn!: string;
-	isbn13!: string;
+	public readDate!: AppDate<Variant> | null;
+	public tags!: string[];
+	public isbn!: string;
+	public isbn13!: string;
 
 	static fromDatabase(data: Book<"DB">): Book {
 		const defaultDoc = DefaultDoc.fromDatabase(data);
