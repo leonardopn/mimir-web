@@ -25,6 +25,7 @@
 		"Config: Next",
 		"Component: LoadingFullPage",
 		"Component: BookRibbon",
-		"Component: BookRibbonReadStatus"
+		"Component: BookRibbonReadStatus",
+		"Component: SearchBookBar"
 	]
 }
