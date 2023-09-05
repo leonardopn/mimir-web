@@ -25,6 +25,7 @@
         "eslint-config-next": "13.4.19",
         "firebase": "^10.2.0",
         "immutability-helper": "^3.1.1",
+        "lodash": "^4.17.21",
         "next": "13.4.19",
         "postcss": "8.4.28",
         "react": "18.2.0",
@@ -40,6 +41,7 @@
     },
     "devDependencies": {
         "@iconify/react": "^4.1.1",
+        "@types/lodash": "^4.14.197",
         "@types/uuid": "^9.0.2",
         "eslint-config-leonardopn": "^1.0.3",
         "npm-check-updates": "^16.12.2"
