@@ -27,6 +27,7 @@
 		"Component: BookRibbon",
 		"Component: BookRibbonReadStatus",
 		"Component: SearchBookBar",
-		"Slice: Search"
+		"Slice: Search",
+		"Hooks: useSearch"
 	]
 }
