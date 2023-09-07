@@ -6,8 +6,11 @@ export const SearchSlice: StateCreator<StoreState, [], [], SearchSliceState> = s
 	const setData = (data: string) =>
 		set(state => update(state, { search: { data: { $set: data } } }));
 
+	const pagesToShow = ["/books"];
+
 	return {
 		data: "",
 		setData,
+		pagesToShow,
 	};
 };

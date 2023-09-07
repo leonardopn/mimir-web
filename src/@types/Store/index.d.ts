@@ -20,6 +20,7 @@ export interface BooksSliceState extends ISliceState {
 export interface SearchSliceState {
 	data: string;
 	setData: (data: string) => void;
+	pagesToShow: string[];
 }
 
 export interface StoreState {
