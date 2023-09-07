@@ -30,6 +30,7 @@
 		"Slice: Search",
 		"Hooks: useSearch",
 		"Component: EmptyMessage",
-		"Hook: useResponsive"
+		"Hook: useResponsive",
+		"Component: ResponsiveLogo"
 	]
 }
