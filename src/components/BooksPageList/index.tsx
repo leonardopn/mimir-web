@@ -1,6 +1,7 @@
 "use client";
 
 import { BookCover } from "@components/BookCover";
+import { EmptyMessage } from "@components/EmptyMessage";
 import { LoadingFullPage } from "@components/LoadingFullPage";
 import { useBooks } from "@hooks/useBooks";
 import { useSearch } from "@hooks/useSearch";
@@ -24,6 +25,7 @@ export function BooksPageList({}: BooksPageListProps) {
 	}, [data, textToSearch]);
 
 	if (isFetching) return <LoadingFullPage />;
+	if (!filteredBooks.length) return <EmptyMessage />;
 
 	return (
 		<div className="flex flex-col w-full gap-8">
