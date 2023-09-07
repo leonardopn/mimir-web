@@ -2,18 +2,14 @@
 
 import { useSearch } from "@hooks/useSearch";
 import { Icon } from "@iconify/react";
-import { Card, IconButton, TextField } from "@mui/material";
+import { Badge, Card, IconButton, TextField, Tooltip } from "@mui/material";
 import { debounce } from "lodash";
+import { useCallback, useRef, useState } from "react";
 import { useToggle } from "react-use";
 
 export function SearchBookBar() {
-	const { setData } = useSearch();
+	const { setData, data } = useSearch();
 	const [showButton, toggleShowButton] = useToggle(false);
-
-	function handleToggleShowButton() {
-		if (showButton) setData("");
-		toggleShowButton();
-	}
 
 	const handleUpdateSearchData = debounce((data: string) => {
 		setData(data);
@@ -24,6 +20,8 @@ export function SearchBookBar() {
 			{showButton && (
 				<Card className="h-10 rounded-full">
 					<TextField
+						autoFocus
+						defaultValue={data}
 						onChange={e => handleUpdateSearchData(e.target.value)}
 						className="w-full"
 						size="small"
@@ -32,9 +30,13 @@ export function SearchBookBar() {
 				</Card>
 			)}
 
-			<IconButton onClick={handleToggleShowButton}>
-				<Icon icon="mdi:magnify" className="text-white h-8 w-8" />
-			</IconButton>
+			<Badge badgeContent={data ? "!" : 0} color="primary" overlap="circular">
+				<Tooltip title={data ? "Há uma busca ativa." : "Buscar..."} arrow>
+					<IconButton onClick={toggleShowButton}>
+						<Icon icon="mdi:magnify" className="text-white h-8 w-8" />
+					</IconButton>
+				</Tooltip>
+			</Badge>
 		</div>
 	);
 }
