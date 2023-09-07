@@ -26,6 +26,7 @@
 		"Component: LoadingFullPage",
 		"Component: BookRibbon",
 		"Component: BookRibbonReadStatus",
-		"Component: SearchBookBar"
+		"Component: SearchBookBar",
+		"Slice: Search"
 	]
 }

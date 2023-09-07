@@ -17,6 +17,12 @@ export interface BooksSliceState extends ISliceState {
 	fetchBooks: () => Promise<void>;
 }
 
+export interface SearchSliceState {
+	data: string;
+	setData: (data: string) => void;
+}
+
 export interface StoreState {
 	books: BooksSliceState;
+	search: SearchSliceState;
 }
