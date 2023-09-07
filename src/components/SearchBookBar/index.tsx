@@ -4,16 +4,19 @@ import { useSearch } from "@hooks/useSearch";
 import { Icon } from "@iconify/react";
 import { Badge, Card, IconButton, TextField, Tooltip } from "@mui/material";
 import { debounce } from "lodash";
-import { useCallback, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useToggle } from "react-use";
 
 export function SearchBookBar() {
-	const { setData, data } = useSearch();
+	const pathname = usePathname();
+	const { setData, data, pagesToShow } = useSearch();
 	const [showButton, toggleShowButton] = useToggle(false);
 
 	const handleUpdateSearchData = debounce((data: string) => {
 		setData(data);
 	}, 800);
+
+	if (!pagesToShow.includes(pathname)) return null;
 
 	return (
 		<div className="flex items-center">
