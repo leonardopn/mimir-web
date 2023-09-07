@@ -29,6 +29,7 @@
 		"Component: SearchBookBar",
 		"Slice: Search",
 		"Hooks: useSearch",
-		"Component: EmptyMessage"
+		"Component: EmptyMessage",
+		"Hook: useResponsive"
 	]
 }
