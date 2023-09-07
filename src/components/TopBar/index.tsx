@@ -16,7 +16,7 @@ export function TopBar({}: TopBarProps) {
 					height={40}
 					className="hover:opacity-60 transition-opacity cursor-pointer active:opacity-100"></Image>
 			</Link>
-			<SearchBookBar data={[]}></SearchBookBar>
+			<SearchBookBar />
 		</div>
 	);
 }
