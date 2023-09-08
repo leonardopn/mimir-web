@@ -1,13 +1,11 @@
-"use client";
+import { useMediaQuery } from "react-responsive";
 
-import { createBreakpoint } from "react-use";
+export function useResponsive() {
+	const isSm = useMediaQuery({ minWidth: 640 });
+	const isMd = useMediaQuery({ minWidth: 768 });
+	const isLg = useMediaQuery({ minWidth: 1024 });
+	const isXl = useMediaQuery({ minWidth: 1280 });
+	const is2xl = useMediaQuery({ minWidth: 1536 });
 
-type Sizes = "sm" | "md" | "lg" | "xl" | "2xl";
-
-const useBreakpoint = createBreakpoint({ sm: 640, md: 768, lg: 1024, xl: 1280, "2xl": 1536 });
-
-export function useResponsive(breakpoint: Sizes) {
-	const currentBreakpoint = useBreakpoint() as Sizes;
-
-	return currentBreakpoint === breakpoint;
+	return { isSm, isMd, isLg, isXl, is2xl };
 }
