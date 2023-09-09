@@ -12,6 +12,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BookService } from "../../services/firebase/Book";
+import { SearchBookModal } from "@components/SearchBookModal";
+import { useToggle } from "react-use";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -20,7 +22,8 @@ interface FormProps
 }
 
 export function NewBookForm() {
-	const { addBook, data } = useBooks();
+	const { addBook } = useBooks();
+	const [showDialog, toggleShowDialog] = useToggle(false);
 	const [coverUrl, setCoverUrl] = useState("");
 	const { control, handleSubmit, register, resetField, watch } = useForm<FormProps>({
 		defaultValues: {
@@ -74,54 +77,65 @@ export function NewBookForm() {
 	}, [cover]);
 
 	return (
-		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
-			<RHFInput control={control} name="title" label="Título"></RHFInput>
-			<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
-			<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
-			<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
-			<RHFDatePicker control={control} name="publishDate" label="Data de publicação" />
-			<RHFSelector
-				options={[]}
-				control={control}
-				name="author"
-				multiple
-				selectOnFocus
-				clearOnBlur
-				handleHomeEndKeys
-				textFieldProps={{ label: "Autores" }}
-				freeSolo></RHFSelector>
-			<RHFSelector
-				options={[]}
-				control={control}
-				name="gender"
-				multiple
-				selectOnFocus
-				clearOnBlur
-				handleHomeEndKeys
-				textFieldProps={{ label: "Gênero" }}
-				freeSolo></RHFSelector>
-			<RHFInput
-				control={control}
-				name="description"
-				multiline
-				minRows={3}
-				label="Descrição"></RHFInput>
-			<div className="flex gap-1 justify-between items-center">
-				<input type="file" accept="image/png, image/jpeg" {...register("cover")}></input>
-				{!!cover && (
-					<IconButton onClick={handleResetCover} color="error" size="small">
-						<Icon icon="mdi:close-circle"></Icon>
-					</IconButton>
-				)}
-			</div>
-			{!!coverUrl && (
-				<div className="flex justify-center items-center">
-					<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
+		<>
+			<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
+				<Button onClick={toggleShowDialog} variant="contained">
+					Buscar livro
+				</Button>
+				<RHFInput control={control} name="title" label="Título"></RHFInput>
+				<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
+				<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
+				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
+				<RHFDatePicker control={control} name="publishDate" label="Data de publicação" />
+				<RHFSelector
+					options={[]}
+					control={control}
+					name="author"
+					multiple
+					selectOnFocus
+					clearOnBlur
+					handleHomeEndKeys
+					textFieldProps={{ label: "Autores" }}
+					freeSolo></RHFSelector>
+				<RHFSelector
+					options={[]}
+					control={control}
+					name="gender"
+					multiple
+					selectOnFocus
+					clearOnBlur
+					handleHomeEndKeys
+					textFieldProps={{ label: "Gênero" }}
+					freeSolo></RHFSelector>
+				<RHFInput
+					control={control}
+					name="description"
+					multiline
+					minRows={3}
+					label="Descrição"></RHFInput>
+				<div className="flex gap-1 justify-between items-center">
+					<input
+						type="file"
+						accept="image/png, image/jpeg"
+						{...register("cover")}></input>
+					{!!cover && (
+						<IconButton onClick={handleResetCover} color="error" size="small">
+							<Icon icon="mdi:close-circle"></Icon>
+						</IconButton>
+					)}
 				</div>
-			)}
-			<Button type="submit" variant="contained">
-				Salvar
-			</Button>
-		</form>
+				{!!coverUrl && (
+					<div className="flex justify-center items-center">
+						<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
+					</div>
+				)}
+				<Button type="submit" variant="contained">
+					Salvar
+				</Button>
+			</form>
+			<SearchBookModal
+				open={showDialog}
+				onClose={() => toggleShowDialog(false)}></SearchBookModal>
+		</>
 	);
 }

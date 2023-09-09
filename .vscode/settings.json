@@ -32,6 +32,7 @@
 		"Component: EmptyMessage",
 		"Hook: useResponsive",
 		"Component: ResponsiveLogo",
-		"Service: GoogleBooksAPI"
+		"Service: GoogleBooksAPI",
+		"Component: SearchBookModal"
 	]
 }
