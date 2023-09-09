@@ -1,11 +1,11 @@
 import { useMediaQuery } from "react-responsive";
 
 export function useResponsive() {
-	const isSm = useMediaQuery({ minWidth: 640 });
-	const isMd = useMediaQuery({ minWidth: 768 });
-	const isLg = useMediaQuery({ minWidth: 1024 });
-	const isXl = useMediaQuery({ minWidth: 1280 });
-	const is2xl = useMediaQuery({ minWidth: 1536 });
+	const isUpSm = useMediaQuery({ minWidth: 640 });
+	const isUpMd = useMediaQuery({ minWidth: 768 });
+	const isUpLg = useMediaQuery({ minWidth: 1024 });
+	const isUpXl = useMediaQuery({ minWidth: 1280 });
+	const isUp2xl = useMediaQuery({ minWidth: 1536 });
 
-	return { isSm, isMd, isLg, isXl, is2xl };
+	return { isUpSm, isUpMd, isUpLg, isUpXl, isUp2xl };
 }
