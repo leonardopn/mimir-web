@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import { ReactNode } from "react";
 import ThemeRegistry from "../theme/ThemeRegistry";
 import "../theme/globals.css";
+import type {} from "@mui/lab/themeAugmentation";
 
 import { LocalizationProvider } from "../providers/LocalizationProvider";
 import { TopBar } from "@components/TopBar";
