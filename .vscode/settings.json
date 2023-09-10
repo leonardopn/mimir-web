@@ -34,6 +34,7 @@
 		"Component: ResponsiveLogo",
 		"Service: GoogleBooksAPI",
 		"Component: SearchBookModal",
-		"Component: BookApiResult"
+		"Component: BookApiResult",
+		"Helper: ConverterTypes"
 	]
 }
