@@ -1,21 +1,16 @@
 import { RHFInput } from "@components/Form/RHFInput";
 import { LoadingButton } from "@mui/lab";
 import { isAxiosError } from "axios";
-import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useToggle } from "react-use";
-import { GetGoogleBooksApi, googleBooksApi } from "../../../services/GoogleBooksAPI";
-import { googleBooksResult } from "../../../mock/googlebooks";
-import { BookApiResult } from "@components/BookApiResult";
-
-interface SearchBookStepProps {}
+import { GetGoogleBooksApi, googleBooksApi } from "../../../../services/GoogleBooksAPI";
+import { Typography } from "@mui/material";
 
 interface FormProps {
 	author: string;
 	title: string;
 }
 
-export function SearchBookStep({}: SearchBookStepProps) {
+export function SearchBookStep1() {
 	const {
 		control,
 		handleSubmit,
@@ -51,6 +46,9 @@ export function SearchBookStep({}: SearchBookStepProps) {
 
 	return (
 		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
+			<Typography className="text-gray-600 text-center">
+				Utilize as caixas de texto e procure seu livro por título e /ou autor
+			</Typography>
 			<RHFInput
 				control={control}
 				name="title"
@@ -66,10 +64,6 @@ export function SearchBookStep({}: SearchBookStepProps) {
 				disabled={!isDirty}>
 				Buscar
 			</LoadingButton>
-
-			{googleBooksResult.items?.map((item, index) => {
-				return <BookApiResult key={item.id ? item.id + index : index} data={item} />;
-			})}
 		</form>
 	);
 }

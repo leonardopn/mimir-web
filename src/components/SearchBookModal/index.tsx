@@ -1,7 +1,7 @@
 import { useResponsive } from "@hooks/useResponsive";
 import { Icon } from "@iconify/react";
 import { Dialog, DialogProps, DialogTitle, DialogContent, IconButton } from "@mui/material";
-import { SearchBookStep } from "./SearchBookStep";
+import { SearchBookStepper } from "./SearchBookStepper";
 
 interface SearchBookModalProps extends DialogProps {}
 
@@ -9,7 +9,13 @@ export function SearchBookModal({ onClose, ...restProps }: SearchBookModalProps)
 	const { isUpSm } = useResponsive();
 
 	return (
-		<Dialog {...restProps} maxWidth="md" fullWidth fullScreen={!isUpSm} className="z-[99999]">
+		<Dialog
+			{...restProps}
+			maxWidth="md"
+			fullWidth
+			fullScreen={!isUpSm}
+			className="z-[99999]"
+			onClose={onClose}>
 			<header className="flex justify-between items-center">
 				<DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
 					Busque um livro
@@ -19,7 +25,7 @@ export function SearchBookModal({ onClose, ...restProps }: SearchBookModalProps)
 				</IconButton>
 			</header>
 			<DialogContent dividers>
-				<SearchBookStep></SearchBookStep>
+				<SearchBookStepper></SearchBookStepper>
 			</DialogContent>
 		</Dialog>
 	);
