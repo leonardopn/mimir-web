@@ -1,28 +1,28 @@
-import { RHFInput } from "@components/Form/RHFInput";
-import { LoadingButton } from "@mui/lab";
-import { isAxiosError } from "axios";
-import { Fragment, useCallback, useMemo } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNumber, useToggle } from "react-use";
-import { GetGoogleBooksApi, googleBooksApi } from "../../../services/GoogleBooksAPI";
-import { googleBooksResult } from "../../../mock/googlebooks";
-import { BookApiResult } from "@components/BookApiResult";
-import { googleBookToLocalBooks } from "../../../helpers/ConverterTypes";
-import { SearchBookStep1 } from "./SearchBookStep1";
-import { Button, Divider, Step, StepLabel, Stepper } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import { Book } from "@typings/Book";
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
+import { useNumber } from "react-use";
+import { SearchBookStep1 } from "./SearchBookStep1";
+import { SearchBookStep2 } from "./SearchBookStep2";
 
 interface SearchBookStepperProps {}
 
-interface FormProps {
-	author: string;
-	title: string;
+export interface IStepComponentDefaultProps {
+	handleNextStep: () => void;
+	handlePreviousStep: () => void;
+	setBooks: Dispatch<SetStateAction<Partial<Book<"LOCAL">>[]>>;
+	setSelectedBook: Dispatch<SetStateAction<Partial<Book<"LOCAL">> | null>>;
+	books: Partial<Book<"LOCAL">>[];
+	selectedBook: Partial<Book<"LOCAL">> | null;
 }
 
 const steps = ["Buscar livros", "Escolher livro", "Finalizar"];
 
 export function SearchBookStepper({}: SearchBookStepperProps) {
 	const [step, { dec, inc }] = useNumber(1, 3, 1);
+	const [books, setBooks] = useState<Partial<Book>[]>([]);
+	const [selectedBook, setSelectedBook] = useState<Partial<Book> | null>(null);
 
 	const handleNextStep = useCallback(() => {
 		inc();
@@ -34,6 +34,8 @@ export function SearchBookStepper({}: SearchBookStepperProps) {
 
 	const CurrentStep = useMemo(() => {
 		switch (step) {
+			case 2:
+				return SearchBookStep2;
 			default:
 				return SearchBookStep1;
 		}
@@ -60,7 +62,14 @@ export function SearchBookStepper({}: SearchBookStepperProps) {
 				</Stepper>
 			</header>
 
-			<CurrentStep />
+			<CurrentStep
+				handleNextStep={handleNextStep}
+				handlePreviousStep={handlePreviousStep}
+				setBooks={setBooks}
+				setSelectedBook={setSelectedBook}
+				books={books}
+				selectedBook={selectedBook}
+			/>
 		</div>
 	);
 }

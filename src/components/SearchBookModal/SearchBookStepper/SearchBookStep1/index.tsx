@@ -4,13 +4,16 @@ import { isAxiosError } from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { GetGoogleBooksApi, googleBooksApi } from "../../../../services/GoogleBooksAPI";
 import { Typography } from "@mui/material";
+import { map } from "lodash";
+import { googleBookToLocalBooks } from "../../../../helpers/ConverterTypes";
+import { IStepComponentDefaultProps } from "..";
 
 interface FormProps {
 	author: string;
 	title: string;
 }
 
-export function SearchBookStep1() {
+export function SearchBookStep1({ handleNextStep, setBooks }: IStepComponentDefaultProps) {
 	const {
 		control,
 		handleSubmit,
@@ -36,7 +39,10 @@ export function SearchBookStep1() {
 				},
 			});
 
-			console.log(data);
+			const convertedData = map(data.items, googleBookToLocalBooks);
+
+			setBooks(convertedData);
+			handleNextStep();
 		} catch (err) {
 			if (isAxiosError(err)) {
 				console.error(err.response?.data);
