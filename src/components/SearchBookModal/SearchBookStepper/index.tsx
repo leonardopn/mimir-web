@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import { Button, Divider, Step, StepLabel, Stepper } from "@mui/material";
 import { Book } from "@typings/Book";
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
 import { useNumber } from "react-use";
@@ -42,7 +42,7 @@ export function SearchBookStepper({}: SearchBookStepperProps) {
 	}, [step]);
 
 	return (
-		<div className="grid grid-cols-1 gap-4">
+		<div className="flex flex-col gap-4 h-full">
 			<header className="flex flex-col sm:flex-row items-center gap-4 my-5">
 				{step !== 1 && (
 					<Button
@@ -61,7 +61,7 @@ export function SearchBookStepper({}: SearchBookStepperProps) {
 					))}
 				</Stepper>
 			</header>
-
+			<Divider></Divider>
 			<CurrentStep
 				handleNextStep={handleNextStep}
 				handlePreviousStep={handlePreviousStep}

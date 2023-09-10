@@ -37,6 +37,7 @@
 		"Component: BookApiResult",
 		"Helper: ConverterTypes",
 		"Component: SearchBookStepper",
-		"Component: SearchBookStep1"
+		"Component: SearchBookStep1",
+		"Component: SearchBookStep2"
 	]
 }

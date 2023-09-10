@@ -1,12 +1,13 @@
 import { RHFInput } from "@components/Form/RHFInput";
 import { LoadingButton } from "@mui/lab";
-import { isAxiosError } from "axios";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { GetGoogleBooksApi, googleBooksApi } from "../../../../services/GoogleBooksAPI";
 import { Typography } from "@mui/material";
+import { isAxiosError } from "axios";
 import { map } from "lodash";
-import { googleBookToLocalBooks } from "../../../../helpers/ConverterTypes";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { IStepComponentDefaultProps } from "..";
+import { googleBookToLocalBooks } from "../../../../helpers/ConverterTypes";
+import { googleBooksResult } from "../../../../mock/googlebooks";
+import { GetGoogleBooksApi, googleBooksApi } from "../../../../services/GoogleBooksAPI";
 
 interface FormProps {
 	author: string;
@@ -31,17 +32,20 @@ export function SearchBookStep1({ handleNextStep, setBooks }: IStepComponentDefa
 			const qToTitle = formData.title ? `intitle:${formData.title}` : undefined;
 			const qs = [qToAuth, qToTitle].filter(Boolean);
 			const q = qs.join("+");
+			const a = false;
+			if (a) {
+				const { data } = await googleBooksApi.get<GetGoogleBooksApi>("/", {
+					params: {
+						q,
+						maxResults: 40,
+					},
+				});
 
-			const { data } = await googleBooksApi.get<GetGoogleBooksApi>("/", {
-				params: {
-					q,
-					maxResults: 40,
-				},
-			});
+				const convertedData = map(data.items, googleBookToLocalBooks);
 
-			const convertedData = map(data.items, googleBookToLocalBooks);
-
-			setBooks(convertedData);
+				setBooks(convertedData);
+			}
+			setBooks(map(googleBooksResult.items || [], googleBookToLocalBooks));
 			handleNextStep();
 		} catch (err) {
 			if (isAxiosError(err)) {
