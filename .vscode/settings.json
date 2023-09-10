@@ -38,6 +38,7 @@
 		"Helper: ConverterTypes",
 		"Component: SearchBookStepper",
 		"Component: SearchBookStep1",
-		"Component: SearchBookStep2"
+		"Component: SearchBookStep2",
+		"Component: SearchBookStep3"
 	]
 }

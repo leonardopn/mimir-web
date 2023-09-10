@@ -2,10 +2,13 @@ import { useResponsive } from "@hooks/useResponsive";
 import { Icon } from "@iconify/react";
 import { Dialog, DialogProps, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import { SearchBookStepper } from "./SearchBookStepper";
+import { Book } from "@typings/Book";
 
-interface SearchBookModalProps extends DialogProps {}
+interface SearchBookModalProps extends DialogProps {
+	onConfirm: (data: Partial<Book>) => void;
+}
 
-export function SearchBookModal({ onClose, ...restProps }: SearchBookModalProps) {
+export function SearchBookModal({ onClose, onConfirm, ...restProps }: SearchBookModalProps) {
 	const { isUpSm } = useResponsive();
 
 	return (
@@ -25,7 +28,11 @@ export function SearchBookModal({ onClose, ...restProps }: SearchBookModalProps)
 				</IconButton>
 			</header>
 			<DialogContent dividers>
-				<SearchBookStepper></SearchBookStepper>
+				<SearchBookStepper
+					onConfirm={onConfirm}
+					onCloseModal={() =>
+						onClose && onClose({}, "escapeKeyDown")
+					}></SearchBookStepper>
 			</DialogContent>
 		</Dialog>
 	);

@@ -135,6 +135,7 @@ export function NewBookForm() {
 			</form>
 			<SearchBookModal
 				open={showDialog}
+				onConfirm={data => console.log(data)}
 				onClose={() => toggleShowDialog(false)}></SearchBookModal>
 		</>
 	);
