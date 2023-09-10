@@ -33,6 +33,7 @@
 		"Hook: useResponsive",
 		"Component: ResponsiveLogo",
 		"Service: GoogleBooksAPI",
-		"Component: SearchBookModal"
+		"Component: SearchBookModal",
+		"Component: BookApiResult"
 	]
 }

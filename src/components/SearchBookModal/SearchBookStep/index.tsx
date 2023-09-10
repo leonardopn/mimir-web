@@ -5,6 +5,8 @@ import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useToggle } from "react-use";
 import { GetGoogleBooksApi, googleBooksApi } from "../../../services/GoogleBooksAPI";
+import { googleBooksResult } from "../../../mock/googlebooks";
+import { BookApiResult } from "@components/BookApiResult";
 
 interface SearchBookStepProps {}
 
@@ -64,6 +66,10 @@ export function SearchBookStep({}: SearchBookStepProps) {
 				disabled={!isDirty}>
 				Buscar
 			</LoadingButton>
+
+			{googleBooksResult.items?.map((item, index) => {
+				return <BookApiResult key={item.id ? item.id + index : index} data={item} />;
+			})}
 		</form>
 	);
 }
