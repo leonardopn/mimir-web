@@ -43,17 +43,17 @@ export function BookApiResult({ data }: BookApiResultProps) {
 	}, [volumeInfo?.publishedDate]);
 
 	return (
-		<div className="flex bg-gray-100 rounded-lg shadow-lg max-h-56 cursor-pointer hover:shadow-xl transition-shadow">
+		<div className="flex flex-col sm:flex-row bg-gray-100 rounded-lg shadow-lg max-h-[500px] sm:max-h-56 cursor-pointer hover:shadow-xl transition-shadow items-center sm:items-stretch">
 			{!!imageToUse && (
 				<Image
 					src={imageToUse}
 					alt={"capa_do_livro"}
 					width={144}
 					height={224}
-					className="rounded-l-lg"
+					className="sm:rounded-l-lg rounded-lg mt-5 sm:mt-0"
 				/>
 			)}
-			<div className="m-5 text-gray-500 overflow-auto flex flex-col gap-2 ">
+			<div className="m-5 text-gray-500 overflow-auto flex flex-col gap-2">
 				<div className="relative top-0 bg-gray-100 sm:sticky flex gap-1 items-center flex-wrap">
 					<Typography className="font-bold text-lg text-gray-700 ">
 						{volumeInfo?.title}
@@ -62,7 +62,7 @@ export function BookApiResult({ data }: BookApiResultProps) {
 						", "
 					)})`}</Typography>
 				</div>
-				<div className="grid grid-cols-1 sm:grid-cols-2">
+				<div className="grid grid-cols-2">
 					<Typography>
 						<Icon icon="ion:library" inline className="text-gray-700" />{" "}
 						{volumeInfo?.publisher || "Não consta"}
