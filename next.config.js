@@ -12,6 +12,10 @@ const nextConfig = {
 				hostname: "firebasestorage.googleapis.com",
 				port: "",
 			},
+			{
+				hostname: "books.google.com",
+				port: "",
+			},
 		],
 	},
 };
