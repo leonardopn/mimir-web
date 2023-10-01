@@ -14,6 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { BookService } from "../../services/firebase/Book";
 import { SearchBookModal } from "@components/SearchBookModal";
 import { useToggle } from "react-use";
+import { DevTool } from "@hookform/devtools";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -25,7 +26,7 @@ export function NewBookForm() {
 	const { addBook } = useBooks();
 	const [showDialog, toggleShowDialog] = useToggle(false);
 	const [coverUrl, setCoverUrl] = useState("");
-	const { control, handleSubmit, register, resetField, watch } = useForm<FormProps>({
+	const { control, handleSubmit, register, resetField, watch, setValue } = useForm<FormProps>({
 		defaultValues: {
 			title: "",
 			description: "",
@@ -66,6 +67,12 @@ export function NewBookForm() {
 
 		addBook(bookInDB);
 	};
+
+	function handleSetSearchedBookInForm(data: Partial<Book<"LOCAL">>) {
+		console.log(data);
+		data.author && setValue("author", [...data.author]);
+		data.title && setValue("title", data.title);
+	}
 
 	useEffect(() => {
 		if (cover) {
@@ -132,10 +139,11 @@ export function NewBookForm() {
 				<Button type="submit" variant="contained">
 					Salvar
 				</Button>
+				<DevTool control={control} /> {/* set up the dev tool */}
 			</form>
 			<SearchBookModal
 				open={showDialog}
-				onConfirm={data => console.log(data)}
+				onConfirm={handleSetSearchedBookInForm}
 				onClose={() => toggleShowDialog(false)}></SearchBookModal>
 		</>
 	);
