@@ -37,6 +37,7 @@ export function RHFSelector<T extends FieldValues>({
 					</li>
 				);
 			}}
+			value={field.value}
 			renderTags={(tagValue, getTagProps) => {
 				return tagValue.map((option, index) => (
 					<Chip {...getTagProps({ index })} key={option} label={option} />
