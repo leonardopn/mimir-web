@@ -50,5 +50,6 @@
         "@types/uuid": "^9.0.7",
         "eslint-config-leonardopn": "^1.0.3",
         "npm-check-updates": "^16.14.12"
-    }
+    },
+    "packageManager": "yarn@4.0.2"
 }
