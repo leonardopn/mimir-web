@@ -16,9 +16,6 @@
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@hookform/resolvers": "^3.3.2",
-		"@types/node": "20.10.5",
-		"@types/react": "18.2.45",
-		"@types/react-dom": "18.2.18",
 		"autoprefixer": "10.4.16",
 		"axios": "^1.6.2",
 		"dayjs": "^1.11.10",
@@ -47,10 +44,18 @@
 		"@hookform/devtools": "^4.3.1",
 		"@iconify/react": "^4.1.1",
 		"@types/lodash": "^4.14.202",
+		"@types/node": "^20.10.5",
+		"@types/react": "^18.2.45",
+		"@types/react-dom": "^18.2.18",
 		"@types/uuid": "^9.0.7",
 		"eslint-config-leonardopn": "^1.0.3",
 		"npm-check-updates": "^16.14.12",
 		"prettier": "^3.1.1"
+	},
+	"resolutions": {
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18"
 	},
 	"packageManager": "yarn@4.0.2"
 }
