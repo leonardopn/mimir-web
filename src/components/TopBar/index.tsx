@@ -1,4 +1,3 @@
-import { SearchBookBar } from "@components/SearchBookBar";
 import Link from "next/link";
 
 import { ResponsiveLogo } from "@components/ResponsiveLogo";
@@ -11,7 +10,6 @@ export function TopBar({}: TopBarProps) {
 			<Link href="/" className="hover:opacity-60 transition-opacity">
 				<ResponsiveLogo />
 			</Link>
-			<SearchBookBar />
 		</div>
 	);
 }
