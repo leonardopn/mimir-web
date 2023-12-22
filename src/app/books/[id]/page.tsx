@@ -21,7 +21,7 @@ export default function BookView({ params: { id } }: BookViewProps) {
 	if (!foundBook || isFetching) return <LoadingFullPage />;
 
 	return (
-		<Container>
+		<Container maxW="container.xl">
 			<header className="mb-8">
 				<Breadcrumbs
 					links={[
@@ -29,11 +29,11 @@ export default function BookView({ params: { id } }: BookViewProps) {
 						{ label: foundBook.title },
 					]}></Breadcrumbs>
 			</header>
-			<main className="flex flex-col lg:flex-row gap-5 justify-center items-center lg:items-start flex-wrap">
+			<main className="flex flex-col lg:flex-row gap-5 justify-center items-center lg:items-start flex-wrap  ">
 				<div className="lg:sticky lg:top-24 h-fit w-fit">
 					<BookCover data={foundBook} disableLink />
 				</div>
-				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800 min-h-[400px] justify-between">
+				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800 min-h-[400px] justify-between w-full">
 					<header className="relative pr-10">
 						<Heading variant="h1" className="text-3xl font-bold">
 							{foundBook.title}
