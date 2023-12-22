@@ -1,5 +1,5 @@
+import { Text } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { Typography } from "@mui/material";
 import { Book } from "@typings/Book";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -35,38 +35,36 @@ export function BookApiResult({ data, onClick }: BookApiResultProps) {
 			)}
 			<div className="m-5 text-gray-500 overflow-auto flex flex-col gap-2">
 				<div className="relative top-0 bg-gray-100 sm:sticky flex gap-1 items-center flex-wrap">
-					<Typography className="font-bold text-lg text-gray-700 ">
-						{data.title}
-					</Typography>
-					<Typography className="text-xs ">{`(${data.author?.join(", ")})`}</Typography>
+					<Text className="font-bold text-lg text-gray-700 ">{data.title}</Text>
+					<Text className="text-xs ">{`(${data.author?.join(", ")})`}</Text>
 				</div>
 				<div className="grid grid-cols-2">
-					<Typography>
+					<Text>
 						<Icon icon="ion:library" inline className="text-gray-700" />{" "}
 						{data.publisher || "Não consta"}
-					</Typography>
+					</Text>
 
-					<Typography>
+					<Text>
 						<Icon icon="ion:calendar" inline className="text-gray-700" /> {dataToUse}
-					</Typography>
+					</Text>
 
 					{!!data?.isbn && (
-						<Typography>
+						<Text>
 							<Icon icon="mdi:barcode" inline className="text-gray-700" /> {data.isbn}
-						</Typography>
+						</Text>
 					)}
 					{!!data?.isbn13 && (
-						<Typography>
+						<Text>
 							<Icon icon="mdi:barcode" inline className="text-gray-700" />{" "}
 							{data.isbn13}
-						</Typography>
+						</Text>
 					)}
 				</div>
 				{!!data?.description && (
-					<Typography>
+					<Text>
 						<Icon icon="mdi:comment-text" inline className="text-gray-700" />{" "}
 						{data?.description}
-					</Typography>
+					</Text>
 				)}
 			</div>
 		</div>

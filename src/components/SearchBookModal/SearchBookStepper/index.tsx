@@ -1,11 +1,25 @@
 import { Icon } from "@iconify/react";
-import { Button, Divider, Step, StepLabel, Stepper } from "@mui/material";
 import { Book } from "@typings/Book";
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
 import { useNumber } from "react-use";
 import { SearchBookStep1 } from "./SearchBookStep1";
 import { SearchBookStep2 } from "./SearchBookStep2";
 import { SearchBookStep3 } from "./SearchBookStep3";
+import {
+	Box,
+	Button,
+	Divider,
+	Step,
+	StepDescription,
+	StepIcon,
+	StepIndicator,
+	StepNumber,
+	StepSeparator,
+	StepStatus,
+	StepTitle,
+	Stepper,
+	useSteps,
+} from "@chakra-ui/react";
 
 interface SearchBookStepperProps {
 	onConfirm: (data: Partial<Book>) => void;
@@ -23,23 +37,30 @@ export interface IStepComponentDefaultProps {
 	selectedBook: Partial<Book<"LOCAL">> | null;
 }
 
-const steps = ["Buscar livros", "Escolher livro", "Finalizar"];
+const steps = [
+	{ title: "Buscar livros", description: "" },
+	{ title: "Escolher livro", description: "" },
+	{ title: "Finalizar", description: "" },
+];
 
 export function SearchBookStepper({ onConfirm, onCloseModal }: SearchBookStepperProps) {
-	const [step, { dec, inc }] = useNumber(1, 3, 1);
+	const { activeStep, goToNext, goToPrevious } = useSteps({
+		index: 1,
+		count: steps.length,
+	});
 	const [books, setBooks] = useState<Partial<Book>[]>([]);
 	const [selectedBook, setSelectedBook] = useState<Partial<Book> | null>(null);
 
 	const handleNextStep = useCallback(() => {
-		inc();
-	}, [inc]);
+		goToNext();
+	}, [goToNext]);
 
 	const handlePreviousStep = useCallback(() => {
-		dec();
-	}, [dec]);
+		goToPrevious();
+	}, [goToPrevious]);
 
 	const CurrentStep = useMemo(() => {
-		switch (step) {
+		switch (activeStep) {
 			case 2:
 				return SearchBookStep2;
 			case 3:
@@ -47,24 +68,38 @@ export function SearchBookStepper({ onConfirm, onCloseModal }: SearchBookStepper
 			default:
 				return SearchBookStep1;
 		}
-	}, [step]);
+	}, [activeStep]);
 
 	return (
 		<div className="flex flex-col gap-4 min-h-full mb-6">
 			<header className="flex flex-col sm:flex-row items-center gap-4 my-5">
-				{step !== 1 && (
+				{activeStep !== 1 && (
 					<Button
 						className="h-10"
 						onClick={handlePreviousStep}
 						variant="outlined"
-						startIcon={<Icon icon="mdi:arrow-left-circle" />}>
+						leftIcon={<Icon icon="mdi:arrow-left-circle" />}>
 						Voltar
 					</Button>
 				)}
-				<Stepper activeStep={step - 1} alternativeLabel className="flex-1 w-full">
-					{steps.map(label => (
-						<Step key={label}>
-							<StepLabel>{label}</StepLabel>
+				index={activeStep}
+				<Stepper index={activeStep} className="flex-1 w-full">
+					{steps.map((step, index) => (
+						<Step key={index}>
+							<StepIndicator>
+								<StepStatus
+									complete={<StepIcon />}
+									incomplete={<StepNumber />}
+									active={<StepNumber />}
+								/>
+							</StepIndicator>
+
+							<Box flexShrink="0">
+								<StepTitle>{step.title}</StepTitle>
+								<StepDescription>{step.description}</StepDescription>
+							</Box>
+
+							<StepSeparator />
 						</Step>
 					))}
 				</Stepper>

@@ -1,8 +1,8 @@
 import { BookApiResult } from "@components/BookApiResult";
 import { IStepComponentDefaultProps } from "..";
 import { Book } from "@typings/Book";
-import { Typography } from "@mui/material";
 import { EmptyMessage } from "@components/EmptyMessage";
+import { Text } from "@chakra-ui/react";
 
 export function SearchBookStep2({
 	books,
@@ -17,9 +17,9 @@ export function SearchBookStep2({
 	return (
 		<div className="flex flex-col gap-5 h-full">
 			<header>
-				<Typography className="text-gray-800 text-center font-bold text-xl">
+				<Text className="text-gray-800 text-center font-bold text-xl">
 					Foram encontrados: {books.length} livro(s)
-				</Typography>
+				</Text>
 			</header>
 			{!books.length && <EmptyMessage className="my-auto sm:my-24"></EmptyMessage>}
 			{books.map((book, index) => {

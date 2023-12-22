@@ -1,13 +1,8 @@
-import { Autocomplete, AutocompleteProps, Chip, TextField, TextFieldProps } from "@mui/material";
+import { Select, SelectProps } from "@chakra-ui/react";
 import { FieldValues, Path, PathValue, UseControllerProps, useController } from "react-hook-form";
 
-type RHFSelectorProps<T extends FieldValues> = Omit<
-	AutocompleteProps<PathValue<T, Path<T>>, boolean, boolean, boolean>,
-	"renderInput"
-> &
-	UseControllerProps<T> & {
-		textFieldProps?: TextFieldProps;
-	};
+type RHFSelectorProps<T extends FieldValues> = SelectProps &
+	UseControllerProps<T> & { options: T[] };
 
 export function RHFSelector<T extends FieldValues>({
 	name,
@@ -15,7 +10,7 @@ export function RHFSelector<T extends FieldValues>({
 	rules,
 	defaultValue,
 	shouldUnregister,
-	textFieldProps,
+	options,
 	...restProps
 }: RHFSelectorProps<T>) {
 	const {
@@ -24,26 +19,14 @@ export function RHFSelector<T extends FieldValues>({
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
 	return (
-		<Autocomplete
-			renderInput={params => <TextField {...textFieldProps} {...params} />}
-			onChange={(event, newValue, reason) => {
-				restProps.onChange?.(event, newValue, reason);
-				field.onChange(newValue);
-			}}
-			renderOption={(props, option) => {
+		<Select onChange={field.onChange} onBlur={field.onBlur} value={field.value} {...restProps}>
+			{options.map((options, index) => {
 				return (
-					<li {...props} key={option}>
-						{option}
-					</li>
+					<option value="option3" key={index}>
+						Option 3
+					</option>
 				);
-			}}
-			value={field.value}
-			renderTags={(tagValue, getTagProps) => {
-				return tagValue.map((option, index) => (
-					<Chip {...getTagProps({ index })} key={option} label={option} />
-				));
-			}}
-			{...restProps}
-		/>
+			})}
+		</Select>
 	);
 }

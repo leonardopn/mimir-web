@@ -1,10 +1,11 @@
 "use client";
+
+import { Card, Container, Heading, Tag, Text } from "@chakra-ui/react";
 import { BookCover } from "@components/BookCover";
 import { Breadcrumbs } from "@components/Breadcrumbs";
 import { LoadingFullPage } from "@components/LoadingFullPage";
 import { useBooks } from "@hooks/useBooks";
-import { Icon } from "@iconify/react";
-import { Card, Chip, CircularProgress, Container, Tooltip, Typography } from "@mui/material";
+
 import { BookGender } from "@typings/Book";
 import dayjs from "dayjs";
 
@@ -34,51 +35,45 @@ export default function BookView({ params: { id } }: BookViewProps) {
 				</div>
 				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800 min-h-[400px] justify-between">
 					<header className="relative pr-10">
-						<Typography variant="h1" className="text-3xl font-bold">
+						<Heading variant="h1" className="text-3xl font-bold">
 							{foundBook.title}
-						</Typography>
-						<Typography variant="h2" className="text-xl font-medium text-gray-600">
+						</Heading>
+						<Heading variant="h2" className="text-xl font-medium text-gray-600">
 							{foundBook.author.join(", ")}
-						</Typography>
+						</Heading>
 
 						{!!foundBook.gender.length && (
 							<div className="flex flex-wrap gap-2 mt-2">
 								{foundBook.gender.map((gender, index) => (
-									<Chip key={index} label={BookGender[gender]}></Chip>
+									<Tag key={index}>{BookGender[gender]}</Tag>
 								))}
 							</div>
 						)}
 					</header>
 
-					<Typography className="text-base text-justify text-gray-600">
+					<Text className="text-base text-justify text-gray-600">
 						{foundBook.description}
-					</Typography>
+					</Text>
 					<div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center text-center">
 						<div>
-							<Typography className="font-bold">Editora</Typography>
-							<Typography className="text-sm   text-gray-600">
-								{foundBook.publisher}
-							</Typography>
+							<Text className="font-bold">Editora</Text>
+							<Text className="text-sm   text-gray-600">{foundBook.publisher}</Text>
 						</div>
 						<div>
-							<Typography className="font-bold">1° Publicação</Typography>
-							<Typography className="text-sm   text-gray-600">
+							<Text className="font-bold">1° Publicação</Text>
+							<Text className="text-sm   text-gray-600">
 								{foundBook.publishDate
 									? dayjs(foundBook.publishDate).format("DD/MM/YYYY")
 									: "Não informado"}
-							</Typography>
+							</Text>
 						</div>
 						<div>
-							<Typography className="font-bold">ISBN-10</Typography>
-							<Typography className="text-sm   text-gray-600">
-								{foundBook.isbn}
-							</Typography>
+							<Text className="font-bold">ISBN-10</Text>
+							<Text className="text-sm   text-gray-600">{foundBook.isbn}</Text>
 						</div>
 						<div>
-							<Typography className="font-bold">ISBN-13</Typography>
-							<Typography className="text-sm   text-gray-600">
-								{foundBook.isbn13}
-							</Typography>
+							<Text className="font-bold">ISBN-13</Text>
+							<Text className="text-sm   text-gray-600">{foundBook.isbn13}</Text>
 						</div>
 					</div>
 				</Card>

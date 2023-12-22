@@ -1,11 +1,9 @@
 "use client";
 
-import { RHFDatePicker } from "@components/Form/RHFDatePicker";
 import { RHFInput } from "@components/Form/RHFInput";
 import { RHFSelector } from "@components/Form/RHFSelector";
 import { useBooks } from "@hooks/useBooks";
 import { Icon } from "@iconify/react";
-import { Button, IconButton } from "@mui/material";
 import { Book } from "@typings/Book";
 import { Dayjs } from "dayjs";
 import Image from "next/image";
@@ -15,6 +13,7 @@ import { BookService } from "../../services/firebase/Book";
 import { SearchBookModal } from "@components/SearchBookModal";
 import { useToggle } from "react-use";
 import { DevTool } from "@hookform/devtools";
+import { Button, IconButton } from "@chakra-ui/react";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -86,47 +85,26 @@ export function NewBookForm() {
 	return (
 		<>
 			<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
-				<Button onClick={toggleShowDialog} variant="contained">
-					Buscar livro
-				</Button>
+				<Button onClick={toggleShowDialog}>Buscar livro</Button>
 				<RHFInput control={control} name="title" label="Título"></RHFInput>
 				<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
 				<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
-				<RHFDatePicker control={control} name="publishDate" label="Data de publicação" />
-				<RHFSelector
-					options={[]}
-					control={control}
-					name="author"
-					multiple
-					selectOnFocus
-					clearOnBlur
-					handleHomeEndKeys
-					textFieldProps={{ label: "Autores" }}
-					freeSolo></RHFSelector>
-				<RHFSelector
-					options={[]}
-					control={control}
-					name="gender"
-					multiple
-					selectOnFocus
-					clearOnBlur
-					handleHomeEndKeys
-					textFieldProps={{ label: "Gênero" }}
-					freeSolo></RHFSelector>
-				<RHFInput
-					control={control}
-					name="description"
-					multiline
-					minRows={3}
-					label="Descrição"></RHFInput>
+				<RHFSelector options={[]} control={control} name="author" multiple></RHFSelector>
+				<RHFSelector options={[]} control={control} name="gender" multiple></RHFSelector>
+				{/* TODO: Criar um text area */}
+				<RHFInput control={control} name="description" label="Descrição"></RHFInput>
 				<div className="flex gap-1 justify-between items-center">
 					<input
 						type="file"
 						accept="image/png, image/jpeg"
 						{...register("cover")}></input>
 					{!!cover && (
-						<IconButton onClick={handleResetCover} color="error" size="small">
+						<IconButton
+							onClick={handleResetCover}
+							color="error"
+							size="small"
+							aria-label={"button remove image"}>
 							<Icon icon="mdi:close-circle"></Icon>
 						</IconButton>
 					)}
@@ -136,13 +114,11 @@ export function NewBookForm() {
 						<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
 					</div>
 				)}
-				<Button type="submit" variant="contained">
-					Salvar
-				</Button>
+				<Button type="submit">Salvar</Button>
 				<DevTool control={control} /> {/* set up the dev tool */}
 			</form>
 			<SearchBookModal
-				open={showDialog}
+				isOpen={showDialog}
 				onConfirm={handleSetSearchedBookInForm}
 				onClose={() => toggleShowDialog(false)}></SearchBookModal>
 		</>

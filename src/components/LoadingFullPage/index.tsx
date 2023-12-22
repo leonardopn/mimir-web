@@ -1,4 +1,4 @@
-import { CircularProgress, Typography } from "@mui/material";
+import { Spinner, Text } from "@chakra-ui/react";
 import { twMerge } from "tailwind-merge";
 
 interface LoadingFullPageProps {
@@ -12,8 +12,8 @@ export function LoadingFullPage({ className }: LoadingFullPageProps) {
 				"flex flex-col justify-center items-center gap-4 w-fit h-fit m-auto",
 				className
 			)}>
-			<CircularProgress className="text-primary"></CircularProgress>
-			<Typography className="text-gray-500">Carregando dados...</Typography>
+			<Spinner className="text-primary"></Spinner>
+			<Text className="text-gray-500">Carregando dados...</Text>
 		</div>
 	);
 }

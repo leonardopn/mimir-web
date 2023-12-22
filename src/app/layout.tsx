@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ReactNode } from "react";
-import ThemeRegistry from "../theme/ThemeRegistry";
-import "../theme/globals.css";
-import type {} from "@mui/lab/themeAugmentation";
-
-import { LocalizationProvider } from "../providers/LocalizationProvider";
 import { TopBar } from "@components/TopBar";
 import { ChakraProvider } from "../providers/ChakraProvider";
+import "../global/Theme/globals.css";
 
 const roboto = Roboto({
 	subsets: ["latin"],
@@ -23,19 +19,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="pt-BR">
-			<body className={roboto.className} id="__next">
-				<main className="min-h-screen bg-slate-200 flex flex-col">
-					<header className="sticky top-0 z-[9999]">
-						<TopBar></TopBar>
-					</header>
-					<div className="px-5 py-10 flex-1 flex flex-col">
-						<LocalizationProvider>
-							<ThemeRegistry options={{ key: "css" }}>
-								<ChakraProvider>{children}</ChakraProvider>
-							</ThemeRegistry>
-						</LocalizationProvider>
-					</div>
-				</main>
+			<body className={roboto.className}>
+				<ChakraProvider>
+					<main className="min-h-screen bg-slate-200 flex flex-col">
+						<header className="sticky top-0 z-[9999]">
+							<TopBar></TopBar>
+						</header>
+						<div className="px-5 py-10 flex-1 flex flex-col">{children}</div>
+					</main>
+				</ChakraProvider>
 			</body>
 		</html>
 	);

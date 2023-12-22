@@ -1,8 +1,10 @@
-import { FieldValue, FieldValues, UseControllerProps, useController } from "react-hook-form";
+import { Input, InputProps } from "@chakra-ui/react";
+import { FieldValues, UseControllerProps, useController } from "react-hook-form";
 
-import { TextField, TextFieldProps } from "@mui/material";
-
-type RHFInputProps<T extends FieldValues> = TextFieldProps & UseControllerProps<T>;
+type RHFInputProps<T extends FieldValues> = InputProps &
+	UseControllerProps<T> & {
+		label: string;
+	};
 
 export function RHFInput<T extends FieldValues>({
 	control,
@@ -10,6 +12,7 @@ export function RHFInput<T extends FieldValues>({
 	rules,
 	defaultValue,
 	shouldUnregister,
+	label,
 	...restProps
 }: RHFInputProps<T>) {
 	const {
@@ -17,5 +20,5 @@ export function RHFInput<T extends FieldValues>({
 		fieldState: { error },
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
-	return <TextField {...restProps} {...field}></TextField>;
+	return <Input {...restProps} {...field}></Input>;
 }

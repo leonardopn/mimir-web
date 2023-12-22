@@ -1,6 +1,6 @@
 import { BookApiResult } from "@components/BookApiResult";
 import { IStepComponentDefaultProps } from "..";
-import { Button, Typography } from "@mui/material";
+import { Button, Text } from "@chakra-ui/react";
 
 export function SearchBookStep3({
 	selectedBook,
@@ -20,15 +20,15 @@ export function SearchBookStep3({
 	return (
 		<div className="flex flex-col gap-10">
 			<main className="flex flex-col gap-5">
-				<Typography className="text-gray-800 text-center font-bold text-xl">
+				<Text className="text-gray-800 text-center font-bold text-xl">
 					Você selecionou este livro:
-				</Typography>
+				</Text>
 				<BookApiResult data={selectedBook}></BookApiResult>
 			</main>
 			<footer className="flex flex-col gap-5">
-				<Typography className="text-gray-800 text-center font-bold text-xl">
+				<Text className="text-gray-800 text-center font-bold text-xl">
 					Deseja utilizo-lo?
-				</Typography>
+				</Text>
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 					<Button color="error" variant="contained" onClick={handlePreviousStep}>
 						Não

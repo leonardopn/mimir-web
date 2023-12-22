@@ -1,6 +1,6 @@
 import { BooksPageList } from "@components/BooksPageList";
 import { FloatingAddButton } from "@components/FloatingAddButton";
-import { Container } from "@mui/material";
+import { Container } from "@chakra-ui/react";
 
 export default function Books() {
 	return (

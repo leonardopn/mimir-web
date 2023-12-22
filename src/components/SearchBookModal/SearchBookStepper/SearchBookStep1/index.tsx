@@ -1,6 +1,4 @@
 import { RHFInput } from "@components/Form/RHFInput";
-import { LoadingButton } from "@mui/lab";
-import { Typography } from "@mui/material";
 import { isAxiosError } from "axios";
 import { map } from "lodash";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -8,6 +6,7 @@ import { IStepComponentDefaultProps } from "..";
 import { googleBookToLocalBooks } from "../../../../helpers/ConverterTypes";
 import { googleBooksResult } from "../../../../mock/googlebooks";
 import { GetGoogleBooksApi, googleBooksApi } from "../../../../services/GoogleBooksAPI";
+import { Button, Text } from "@chakra-ui/react";
 
 interface FormProps {
 	author: string;
@@ -56,9 +55,9 @@ export function SearchBookStep1({ handleNextStep, setBooks }: IStepComponentDefa
 
 	return (
 		<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
-			<Typography className="text-gray-600 text-center">
+			<Text className="text-gray-600 text-center">
 				Utilize as caixas de texto e procure seu livro por título e /ou autor
-			</Typography>
+			</Text>
 			<RHFInput
 				control={control}
 				name="title"
@@ -66,14 +65,14 @@ export function SearchBookStep1({ handleNextStep, setBooks }: IStepComponentDefa
 				label="Título do livro"
 			/>
 			<RHFInput control={control} name="author" placeholder="J. K. Rowling" label="Autor" />
-			<LoadingButton
+			<Button
 				type="submit"
 				variant="contained"
 				size="large"
-				loading={isSubmitting}
-				disabled={!isDirty}>
+				isLoading={isSubmitting}
+				isDisabled={!isDirty}>
 				Buscar
-			</LoadingButton>
+			</Button>
 		</form>
 	);
 }

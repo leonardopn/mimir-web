@@ -1,8 +1,8 @@
 "use client";
 
+import { Badge, Card, IconButton, Input, Tooltip } from "@chakra-ui/react";
 import { useSearch } from "@hooks/useSearch";
 import { Icon } from "@iconify/react";
-import { Badge, Card, IconButton, TextField, Tooltip } from "@mui/material";
 import { debounce } from "lodash";
 import { usePathname } from "next/navigation";
 import { useToggle } from "react-use";
@@ -22,24 +22,22 @@ export function SearchBookBar() {
 		<div className="flex items-center">
 			{showButton && (
 				<Card className="h-10 rounded-full">
-					<TextField
+					<Input
 						autoFocus
 						defaultValue={data}
 						onChange={e => handleUpdateSearchData(e.target.value)}
 						className="w-full"
 						size="small"
-						InputProps={{ classes: { root: "rounded-full" } }}
-						placeholder="Pesquisei aqui..."></TextField>
+						rounded="full"
+						placeholder="Pesquisei aqui..."></Input>
 				</Card>
 			)}
 
-			<Badge badgeContent={data ? "!" : 0} color="primary" overlap="circular">
-				<Tooltip title={data ? "Há uma busca ativa." : "Buscar..."} arrow>
-					<IconButton onClick={toggleShowButton}>
-						<Icon icon="mdi:magnify" className="text-white h-8 w-8" />
-					</IconButton>
-				</Tooltip>
-			</Badge>
+			<Tooltip title={data ? "Há uma busca ativa." : "Buscar..."} hasArrow>
+				<IconButton onClick={toggleShowButton} aria-label={"button search"}>
+					<Icon icon="mdi:magnify" className="text-white h-8 w-8" />
+				</IconButton>
+			</Tooltip>
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
+import { Text } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { CircularProgress, Typography } from "@mui/material";
 import { twMerge } from "tailwind-merge";
 
 interface EmptyMessage {
@@ -22,8 +22,8 @@ export function EmptyMessage({
 				className
 			)}>
 			<Icon icon={icon} className="text-primary sm:h-24 sm:w-24 h-20 w-20"></Icon>
-			<Typography className="text-gray-700 text-3xl font-bold">{message}</Typography>
-			<Typography className="text-gray-500 text-lg">{subMessage}</Typography>
+			<Text className="text-gray-700 text-3xl font-bold">{message}</Text>
+			<Text className="text-gray-500 text-lg">{subMessage}</Text>
 		</div>
 	);
 }
