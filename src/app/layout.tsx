@@ -7,10 +7,12 @@ import type {} from "@mui/lab/themeAugmentation";
 
 import { LocalizationProvider } from "../providers/LocalizationProvider";
 import { TopBar } from "@components/TopBar";
+import { ChakraProvider } from "../providers/ChakraProvider";
 
 const roboto = Roboto({
 	subsets: ["latin"],
 	weight: ["300", "400", "500", "700"],
+	variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 					</header>
 					<div className="px-5 py-10 flex-1 flex flex-col">
 						<LocalizationProvider>
-							<ThemeRegistry options={{ key: "css" }}>{children}</ThemeRegistry>
+							<ThemeRegistry options={{ key: "css" }}>
+								<ChakraProvider>{children}</ChakraProvider>
+							</ThemeRegistry>
 						</LocalizationProvider>
 					</div>
 				</main>
