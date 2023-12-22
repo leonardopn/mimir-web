@@ -11,7 +11,7 @@ interface BookCoverProps {
 }
 
 const ContainerStyle = tv({
-	base: "relative w-fit h-fit",
+	base: "relative w-64 h-96",
 	variants: {
 		clickable: {
 			true: "hover:scale-105 transition-transform cursor-pointer ",
@@ -29,7 +29,7 @@ export function BookCover({ data, alt, disableLink }: BookCoverProps) {
 			alt={alt || "capa do livro"}
 			width={250}
 			height={400}
-			className="rounded-xl shadow-xl"></Image>
+			className="rounded-xl shadow-xl w-full h-full"></Image>
 	);
 
 	return (
