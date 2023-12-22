@@ -1,10 +1,10 @@
+import { Link } from "@chakra-ui/next-js";
 import {
-	Breadcrumb as ChakraBreadcrumbs,
-	BreadcrumbProps as ChakraBreadcrumbProps,
 	BreadcrumbItem,
 	BreadcrumbLink,
+	BreadcrumbProps as ChakraBreadcrumbProps,
+	Breadcrumb as ChakraBreadcrumbs,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 interface BreadcrumbLink {
 	label: string;
@@ -17,31 +17,22 @@ interface BreadcrumbsProps extends ChakraBreadcrumbProps {
 }
 
 export function Breadcrumbs({ links, ...restProps }: BreadcrumbsProps) {
+	function isCurrent(index: number) {
+		return links.length === index + 1;
+	}
+
 	return (
-		<ChakraBreadcrumbs className="" {...restProps}>
-			<BreadcrumbItem>
-				{links.map((link, index) =>
-					link.href ? (
-						<BreadcrumbLink
-							as={Link}
-							key={index}
-							href={link.href || ""}
-							className={`no-underline  hover:underline ${
-								links.length === index + 1 ? "text-gray-500" : "text-gray-700"
-							}`}>
-							{link.label}
-						</BreadcrumbLink>
-					) : (
-						<span
-							key={index}
-							className={` ${
-								links.length === index + 1 ? "text-gray-500" : "text-gray-700"
-							}`}>
-							{link.label}
-						</span>
-					)
-				)}
-			</BreadcrumbItem>
+		<ChakraBreadcrumbs {...restProps}>
+			{links.map((link, index) => (
+				<BreadcrumbItem key={index} isCurrentPage={isCurrent(index)}>
+					<BreadcrumbLink
+						className={`${isCurrent(index) ? "text-gray-500" : ""}`}
+						as={isCurrent(index) ? undefined : Link}
+						href={link?.href || "#"}>
+						{link.label}
+					</BreadcrumbLink>
+				</BreadcrumbItem>
+			))}
 		</ChakraBreadcrumbs>
 	);
 }
