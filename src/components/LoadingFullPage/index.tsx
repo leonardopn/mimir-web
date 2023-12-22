@@ -12,7 +12,7 @@ export function LoadingFullPage({ className }: LoadingFullPageProps) {
 				"flex flex-col justify-center items-center gap-4 w-fit h-fit m-auto",
 				className
 			)}>
-			<Spinner className="text-primary"></Spinner>
+			<Spinner className="text-primary-500"></Spinner>
 			<Text className="text-gray-500">Carregando dados...</Text>
 		</div>
 	);
