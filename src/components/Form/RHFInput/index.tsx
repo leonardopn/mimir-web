@@ -1,4 +1,4 @@
-import { Input, InputProps } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input, InputProps } from "@chakra-ui/react";
 import { FieldValues, UseControllerProps, useController } from "react-hook-form";
 
 type RHFInputProps<T extends FieldValues> = InputProps &
@@ -13,6 +13,7 @@ export function RHFInput<T extends FieldValues>({
 	defaultValue,
 	shouldUnregister,
 	label,
+	isRequired,
 	...restProps
 }: RHFInputProps<T>) {
 	const {
@@ -20,5 +21,11 @@ export function RHFInput<T extends FieldValues>({
 		fieldState: { error },
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
-	return <Input {...restProps} {...field}></Input>;
+	return (
+		<FormControl isRequired={isRequired}>
+			{!!label && <FormLabel>{label}</FormLabel>}
+			<Input {...restProps} {...field} />
+			{!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
+		</FormControl>
+	);
 }
