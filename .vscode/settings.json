@@ -39,6 +39,7 @@
 		"Component: SearchBookStepper",
 		"Component: SearchBookStep1",
 		"Component: SearchBookStep2",
-		"Component: SearchBookStep3"
+		"Component: SearchBookStep3",
+		"Component: RHFTextArea"
 	]
 }
