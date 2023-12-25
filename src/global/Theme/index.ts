@@ -1,4 +1,4 @@
-import { extendTheme, withDefaultProps } from "@chakra-ui/react";
+import { extendTheme, withDefaultColorScheme, withDefaultProps } from "@chakra-ui/react";
 
 export const theme = extendTheme(
 	{
@@ -19,10 +19,25 @@ export const theme = extendTheme(
 			heading: "var(--font-roboto)",
 			body: "var(--font-roboto)",
 		},
-	},
-	withDefaultProps({
-		defaultProps: {
-			colorScheme: "primary",
+		components: {
+			Input: {
+				defaultProps: {
+					focusBorderColor: "primary.500",
+				},
+			},
+			Select: {
+				defaultProps: {
+					focusBorderColor: "primary.500",
+				},
+			},
+			Textarea: {
+				defaultProps: {
+					focusBorderColor: "primary.500",
+				},
+			},
 		},
+	},
+	withDefaultColorScheme({
+		colorScheme: "primary",
 	})
 );
