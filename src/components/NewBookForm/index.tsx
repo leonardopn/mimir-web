@@ -14,6 +14,7 @@ import { SearchBookModal } from "@components/SearchBookModal";
 import { useToggle } from "react-use";
 import { DevTool } from "@hookform/devtools";
 import { Button, IconButton } from "@chakra-ui/react";
+import { RHFTextArea } from "@components/Form/RHFTextArea";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -92,8 +93,7 @@ export function NewBookForm() {
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
 				<RHFSelector options={[]} control={control} name="author" multiple></RHFSelector>
 				<RHFSelector options={[]} control={control} name="gender" multiple></RHFSelector>
-				{/* TODO: Criar um text area */}
-				<RHFInput control={control} name="description" label="Descrição"></RHFInput>
+				<RHFTextArea control={control} name="description" label="Descrição" />
 				<div className="flex gap-1 justify-between items-center">
 					<input
 						type="file"
