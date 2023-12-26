@@ -4,12 +4,16 @@ import {
 	FormErrorMessage,
 	FormHelperText,
 	FormLabel,
+	IconButton,
 	Input,
+	InputGroup,
 	InputProps,
+	InputRightElement,
 	ScaleFade,
 	Tag,
 	TagLabel,
 	TagRightIcon,
+	Tooltip,
 	useDisclosure,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
@@ -20,7 +24,12 @@ import { tv } from "tailwind-variants";
 import { z } from "zod";
 
 type RHFAutoCompleteProps<T extends FieldValues> = InputProps &
-	UseControllerProps<T> & { options: string[]; label?: string; freeSolo?: boolean };
+	UseControllerProps<T> & {
+		options: string[];
+		label?: string;
+		freeSolo?: boolean;
+		clearable?: boolean;
+	};
 
 interface IOption {
 	value: string;
@@ -60,6 +69,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 	options,
 	isRequired,
 	freeSolo = false,
+	clearable = true,
 	...restProps
 }: RHFAutoCompleteProps<T>) {
 	const {
@@ -141,6 +151,13 @@ export function RHFAutoComplete<T extends FieldValues>({
 		}
 	}
 
+	function handleClearAll() {
+		field.onChange([]);
+		setOriginalOptions(mapDefaultOption(options));
+		onClose();
+		setInputState("");
+	}
+
 	function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
 		if (e.key === "Enter") {
 			e.preventDefault();
@@ -157,15 +174,29 @@ export function RHFAutoComplete<T extends FieldValues>({
 		<FormControl isRequired={isRequired}>
 			{!!label && <FormLabel>{label}</FormLabel>}
 			<div className="relative">
-				<Input
-					{...restProps}
-					value={inputState}
-					autoComplete="off"
-					onChange={handleOnChangeInputText}
-					onKeyUp={handleAddRemoveOptionByKeyUp}
-					onKeyDown={handleKeyDown}
-				/>
-
+				<InputGroup>
+					<Input
+						{...restProps}
+						value={inputState}
+						autoComplete="off"
+						onChange={handleOnChangeInputText}
+						onKeyUp={handleAddRemoveOptionByKeyUp}
+						onKeyDown={handleKeyDown}
+					/>
+					{!!value.length && clearable && (
+						<InputRightElement>
+							<Tooltip label="Limpar valores" hasArrow>
+								<IconButton
+									aria-label="Botão limpar tudo"
+									onClick={handleClearAll}
+									variant="ghost"
+									size="xs">
+									<Icon icon="mdi:close"></Icon>
+								</IconButton>
+							</Tooltip>
+						</InputRightElement>
+					)}
+				</InputGroup>
 				<ScaleFade in={isOpen} className={ScaleTransitionStyle({ isOpen })}>
 					<div className="border border-solid rounded-md bg-white mt-2 w-full overflow-auto max-h-60">
 						{!filteredOptions.length && <EmptyOption />}
