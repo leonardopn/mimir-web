@@ -103,6 +103,7 @@ export function NewBookForm() {
 					options={["32", "teste"]}
 					control={control}
 					name="author"
+					freeSolo
 					label="Autores"></RHFAutoComplete>
 				<div className="flex gap-1 justify-between items-center">
 					<input

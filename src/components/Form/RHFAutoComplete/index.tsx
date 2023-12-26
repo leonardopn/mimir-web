@@ -1,6 +1,7 @@
 import {
 	FormControl,
 	FormErrorMessage,
+	FormHelperText,
 	FormLabel,
 	Input,
 	InputProps,
@@ -18,7 +19,7 @@ import { tv } from "tailwind-variants";
 import { z } from "zod";
 
 type RHFAutoCompleteProps<T extends FieldValues> = InputProps &
-	UseControllerProps<T> & { options: string[]; label?: string };
+	UseControllerProps<T> & { options: string[]; label?: string; freeSolo?: boolean };
 
 interface IOption {
 	value: string;
@@ -57,6 +58,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 	label,
 	options,
 	isRequired,
+	freeSolo = false,
 	...restProps
 }: RHFAutoCompleteProps<T>) {
 	const {
@@ -72,7 +74,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 	const value = z.array(z.string()).parse(field.value);
 
 	function handleAddRemoveOptionByKeyUp(e: KeyboardEvent<HTMLInputElement>) {
-		if (e.key === "Enter" && inputState.trim()) {
+		if (e.key === "Enter" && inputState.trim() && freeSolo) {
 			if (originalOptions.find(op => op.value === inputState && op.isSelected)) {
 				handleRemoveOption(inputState);
 			} else {
@@ -179,6 +181,9 @@ export function RHFAutoComplete<T extends FieldValues>({
 					</div>
 				</ScaleFade>
 			</div>
+			{freeSolo && (
+				<FormHelperText>{`Pressione "Enter" para adiciona a opção.`}</FormHelperText>
+			)}
 
 			{!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
 			<div className="flex gap-2 flex-wrap mt-2">
