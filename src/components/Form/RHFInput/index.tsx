@@ -22,9 +22,9 @@ export function RHFInput<T extends FieldValues>({
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
 	return (
-		<FormControl isRequired={isRequired}>
+		<FormControl isRequired={isRequired} isInvalid={!!error}>
 			{!!label && <FormLabel>{label}</FormLabel>}
-			<Input {...restProps} {...field} />
+			<Input {...restProps} {...field} isInvalid={!!error} />
 			{!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
 		</FormControl>
 	);
