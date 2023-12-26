@@ -89,6 +89,12 @@ export function RHFAutoComplete<T extends FieldValues>({
 		onClose();
 	}
 
+	function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+		}
+	}
+
 	return (
 		<FormControl isRequired={isRequired}>
 			{!!label && <FormLabel>{label}</FormLabel>}
@@ -101,6 +107,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 					onKeyUp={handleAddOption}
 					onFocus={handleInputFocus}
 					onBlur={handleInputBlur}
+					onKeyDown={handleKeyDown}
 				/>
 
 				<ScaleFade in={isOpen}>
