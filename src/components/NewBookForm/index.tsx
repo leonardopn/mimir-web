@@ -104,7 +104,8 @@ export function NewBookForm() {
 					control={control}
 					name="author"
 					freeSolo
-					label="Autores"></RHFAutoComplete>
+					label="Autores"
+				/>
 				<div className="flex gap-1 justify-between items-center">
 					<input
 						type="file"
@@ -133,12 +134,8 @@ export function NewBookForm() {
 					<section className="grid grid-cols-1 gap-4">
 						<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
 						<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
+						<RHFAutoComplete control={control} name="gender" freeSolo label="Gêneros" />
 
-						<RHFSelector
-							options={[]}
-							control={control}
-							name="gender"
-							multiple></RHFSelector>
 						<RHFTextArea control={control} name="description" label="Descrição" />
 					</section>
 				</Collapse>
