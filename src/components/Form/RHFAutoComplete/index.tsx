@@ -11,7 +11,8 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { FocusEvent, KeyboardEvent, useMemo, useState } from "react";
+import update from "immutability-helper";
+import { ChangeEvent, KeyboardEvent, useMemo, useState } from "react";
 import { FieldValues, UseControllerProps, useController } from "react-hook-form";
 import { tv } from "tailwind-variants";
 import { z } from "zod";
@@ -19,29 +20,24 @@ import { z } from "zod";
 type RHFAutoCompleteProps<T extends FieldValues> = InputProps &
 	UseControllerProps<T> & { options: string[]; label?: string };
 
-function mapDefaultOption(defaultOption: string[]) {
+interface IOption {
+	value: string;
+	isSelected: boolean;
+}
+
+function mapDefaultOption(defaultOption: string[]): IOption[] {
 	return defaultOption.map(op => ({ value: op, isSelected: false }));
 }
 
 const OptionStyle = tv({
 	variants: {
 		isSelected: {
-			true: "",
-			false: "",
+			true: "bg-slate-200 hover:bg-slate-300",
 		},
 	},
-	base: "cursor-pointer hover:bg-gray-50 active:bg-gray-100 py-2 px-3 transition-colors",
+	base: "cursor-pointer hover:bg-slate-100 active:bg-slate-200 py-2 px-3 transition-colors",
 });
 
-const OptionsStyle = tv({
-	variants: {
-		isOpen: {
-			true: "z-10",
-			false: "-z-10",
-		},
-	},
-	base: "border border-solid rounded-md bg-white mt-2 w-full overflow-hidden",
-});
 const ScaleTransitionStyle = tv({
 	variants: {
 		isOpen: {
@@ -75,31 +71,71 @@ export function RHFAutoComplete<T extends FieldValues>({
 
 	const value = z.array(z.string()).parse(field.value);
 
-	function handleAddOption(e: KeyboardEvent<HTMLInputElement>) {
+	function handleAddRemoveOptionByKeyUp(e: KeyboardEvent<HTMLInputElement>) {
 		if (e.key === "Enter" && inputState.trim()) {
-			if (!value.find(op => op === inputState)) {
-				field.onChange([...value, inputState]);
-				setInputState("");
-				setOriginalOptions(oldState => [
-					...oldState,
-					{ value: inputState, isSelected: true },
-				]);
-				onClose();
+			if (originalOptions.find(op => op.value === inputState && op.isSelected)) {
+				handleRemoveOption(inputState);
+			} else {
+				handleAddOption(inputState);
 			}
 		}
 	}
 
-	function handleRemoveOption(option: string) {
-		field.onChange(value.filter(op => op !== option));
-		setOriginalOptions(oldState => oldState.filter(op => op.value !== option));
+	function handleOnChangeInputText(e: ChangeEvent<HTMLInputElement>) {
+		const inputText = e.target.value;
+		setInputState(inputText);
+
+		if (!inputText) {
+			onClose();
+		} else {
+			!isOpen && onOpen();
+		}
 	}
 
-	function handleInputFocus(e: FocusEvent<HTMLInputElement, Element>) {
-		onOpen();
-	}
-
-	function handleInputBlur(e: FocusEvent<HTMLInputElement, Element>) {
+	function handleAddOption(option: string) {
+		setInputState("");
 		onClose();
+
+		if (!value.find(op => op === inputState)) {
+			field.onChange([...value, option]);
+		}
+
+		setOriginalOptions(oldState => {
+			const index = oldState.findIndex(op => op.value === option);
+			if (index === -1) {
+				return [...oldState, { value: option, isSelected: true }];
+			} else {
+				return update(oldState, { [index]: { isSelected: { $set: true } } });
+			}
+		});
+	}
+
+	function handleRemoveOption(option: string) {
+		setInputState("");
+		onClose();
+
+		field.onChange(value.filter(op => op !== option));
+
+		setOriginalOptions(oldState => {
+			const index = oldState.findIndex(op => op.value === option);
+
+			if (index === -1) {
+				return oldState;
+			} else {
+				if (options.includes(option)) {
+					return update(oldState, { [index]: { isSelected: { $set: false } } });
+				}
+				return update(oldState, { $splice: [[index, 1]] });
+			}
+		});
+	}
+
+	function handleAddRemoveOptionByClick(option: IOption) {
+		if (option.isSelected) {
+			handleRemoveOption(option.value);
+		} else {
+			handleAddOption(option.value);
+		}
 	}
 
 	function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
@@ -109,7 +145,9 @@ export function RHFAutoComplete<T extends FieldValues>({
 	}
 
 	const filteredOptions = useMemo(() => {
-		return originalOptions.filter(op => op.value.includes(inputState));
+		return originalOptions.filter(op =>
+			op.value.toLowerCase().includes(inputState.toLowerCase())
+		);
 	}, [inputState, originalOptions]);
 
 	return (
@@ -120,10 +158,8 @@ export function RHFAutoComplete<T extends FieldValues>({
 					{...restProps}
 					value={inputState}
 					autoComplete="off"
-					onChange={e => setInputState(e.target.value)}
-					onKeyUp={handleAddOption}
-					onFocus={handleInputFocus}
-					onBlur={handleInputBlur}
+					onChange={handleOnChangeInputText}
+					onKeyUp={handleAddRemoveOptionByKeyUp}
 					onKeyDown={handleKeyDown}
 				/>
 
@@ -134,6 +170,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 							return (
 								<div
 									key={option.value}
+									onClick={() => handleAddRemoveOptionByClick(option)}
 									className={OptionStyle({ isSelected: option.isSelected })}>
 									{option.value}
 								</div>
