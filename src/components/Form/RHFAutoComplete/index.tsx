@@ -25,7 +25,7 @@ import { z } from "zod";
 
 type RHFAutoCompleteProps<T extends FieldValues> = InputProps &
 	UseControllerProps<T> & {
-		options: string[];
+		options?: string[];
 		label?: string;
 		freeSolo?: boolean;
 		clearable?: boolean;
@@ -66,8 +66,8 @@ export function RHFAutoComplete<T extends FieldValues>({
 	defaultValue,
 	shouldUnregister,
 	label,
-	options,
 	isRequired,
+	options = [],
 	freeSolo = false,
 	clearable = true,
 	...restProps
@@ -171,7 +171,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 	}, [inputState, originalOptions]);
 
 	return (
-		<FormControl isRequired={isRequired}>
+		<FormControl isRequired={isRequired} isInvalid={!!error}>
 			{!!label && <FormLabel>{label}</FormLabel>}
 			<div className="relative">
 				<InputGroup>
@@ -182,6 +182,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 						onChange={handleOnChangeInputText}
 						onKeyUp={handleAddRemoveOptionByKeyUp}
 						onKeyDown={handleKeyDown}
+						isInvalid={!!error}
 					/>
 					{!!value.length && clearable && (
 						<InputRightElement>
