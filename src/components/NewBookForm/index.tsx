@@ -16,12 +16,18 @@ import { DevTool } from "@hookform/devtools";
 import { Button, Collapse, Divider, IconButton } from "@chakra-ui/react";
 import { RHFTextArea } from "@components/Form/RHFTextArea";
 import { RHFAutoComplete } from "@components/Form/RHFAutoComplete";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
 	publishDate: Dayjs | null;
 	cover: FileList | null;
 }
+
+const FormSchema = z.object({
+	title: z.string().min(1),
+});
 
 export function NewBookForm() {
 	const { addBook } = useBooks();
@@ -42,6 +48,7 @@ export function NewBookForm() {
 			publisher: "",
 			tags: [],
 		},
+		resolver: zodResolver(FormSchema),
 	});
 
 	const cover = watch("cover");
