@@ -40,6 +40,7 @@
 		"Component: SearchBookStep1",
 		"Component: SearchBookStep2",
 		"Component: SearchBookStep3",
-		"Component: RHFTextArea"
+		"Component: RHFTextArea",
+		"Component: RHFAutoComplete"
 	]
 }
