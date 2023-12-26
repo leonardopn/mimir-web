@@ -1,4 +1,5 @@
 import {
+	Button,
 	FormControl,
 	FormErrorMessage,
 	FormHelperText,
@@ -36,7 +37,7 @@ const OptionStyle = tv({
 			true: "bg-slate-200 hover:bg-slate-300",
 		},
 	},
-	base: "cursor-pointer hover:bg-slate-100 active:bg-slate-200 py-2 px-3 transition-colors",
+	base: "py-2 px-3 flex w-full justify-start rounded-none ",
 });
 
 const ScaleTransitionStyle = tv({
@@ -170,12 +171,19 @@ export function RHFAutoComplete<T extends FieldValues>({
 						{!filteredOptions.length && <EmptyOption />}
 						{filteredOptions.map(option => {
 							return (
-								<div
+								<Button
+									leftIcon={
+										<Icon
+											icon="lets-icons:check-fill"
+											className="text-primary-500 h-6 w-6"
+										/>
+									}
+									variant="link"
 									key={option.value}
 									onClick={() => handleAddRemoveOptionByClick(option)}
 									className={OptionStyle({ isSelected: option.isSelected })}>
 									{option.value}
-								</div>
+								</Button>
 							);
 						})}
 					</div>
