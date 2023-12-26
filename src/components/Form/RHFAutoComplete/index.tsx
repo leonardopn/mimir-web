@@ -11,7 +11,7 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { FocusEvent, KeyboardEvent, useState } from "react";
+import { FocusEvent, KeyboardEvent, useMemo, useState } from "react";
 import { FieldValues, UseControllerProps, useController } from "react-hook-form";
 import { tv } from "tailwind-variants";
 import { z } from "zod";
@@ -40,7 +40,16 @@ const OptionsStyle = tv({
 			false: "-z-10",
 		},
 	},
-	base: "border border-solid rounded-md bg-white mt-2 w-full overflow-hidden absolute",
+	base: "border border-solid rounded-md bg-white mt-2 w-full overflow-hidden",
+});
+const ScaleTransitionStyle = tv({
+	variants: {
+		isOpen: {
+			true: "z-10",
+			false: "-z-10",
+		},
+	},
+	base: "w-full absolute",
 });
 
 export function RHFAutoComplete<T extends FieldValues>({
@@ -60,7 +69,8 @@ export function RHFAutoComplete<T extends FieldValues>({
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
 	const [inputState, setInputState] = useState("");
-	const [optionsState, setOptionsState] = useState(mapDefaultOption(options));
+	const [originalOptions, setOriginalOptions] = useState(mapDefaultOption(options));
+
 	const { onOpen, onClose, isOpen } = useDisclosure();
 
 	const value = z.array(z.string()).parse(field.value);
@@ -70,7 +80,10 @@ export function RHFAutoComplete<T extends FieldValues>({
 			if (!value.find(op => op === inputState)) {
 				field.onChange([...value, inputState]);
 				setInputState("");
-				setOptionsState(oldState => [...oldState, { value: inputState, isSelected: true }]);
+				setOriginalOptions(oldState => [
+					...oldState,
+					{ value: inputState, isSelected: true },
+				]);
 				onClose();
 			}
 		}
@@ -78,7 +91,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 
 	function handleRemoveOption(option: string) {
 		field.onChange(value.filter(op => op !== option));
-		setOptionsState(oldState => oldState.filter(op => op.value !== option));
+		setOriginalOptions(oldState => oldState.filter(op => op.value !== option));
 	}
 
 	function handleInputFocus(e: FocusEvent<HTMLInputElement, Element>) {
@@ -95,6 +108,10 @@ export function RHFAutoComplete<T extends FieldValues>({
 		}
 	}
 
+	const filteredOptions = useMemo(() => {
+		return originalOptions.filter(op => op.value.includes(inputState));
+	}, [inputState, originalOptions]);
+
 	return (
 		<FormControl isRequired={isRequired}>
 			{!!label && <FormLabel>{label}</FormLabel>}
@@ -110,9 +127,10 @@ export function RHFAutoComplete<T extends FieldValues>({
 					onKeyDown={handleKeyDown}
 				/>
 
-				<ScaleFade in={isOpen}>
-					<div className={OptionsStyle({ isOpen })}>
-						{optionsState.map(option => {
+				<ScaleFade in={isOpen} className={ScaleTransitionStyle({ isOpen })}>
+					<div className="border border-solid rounded-md bg-white mt-2 w-full overflow-auto max-h-60">
+						{!filteredOptions.length && <EmptyOption />}
+						{filteredOptions.map(option => {
 							return (
 								<div
 									key={option.value}
@@ -142,4 +160,8 @@ export function RHFAutoComplete<T extends FieldValues>({
 			</div>
 		</FormControl>
 	);
+}
+
+function EmptyOption() {
+	return <p className="p-5 text-center">Sem opções</p>;
 }
