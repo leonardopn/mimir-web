@@ -36,8 +36,10 @@ interface IOption {
 	isSelected: boolean;
 }
 
-function mapDefaultOption(defaultOption: string[]): IOption[] {
-	return defaultOption.map(op => ({ value: op, isSelected: false }));
+function mapDefaultOption(defaultOption: string[], selectedOptions: string[]): IOption[] {
+	const unionArray = Array.from(new Set([...defaultOption, ...selectedOptions]));
+
+	return unionArray.map(op => ({ value: op, isSelected: selectedOptions.includes(op) }));
 }
 
 const OptionStyle = tv({
@@ -78,7 +80,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 	} = useController({ name, control, rules, defaultValue, shouldUnregister });
 
 	const [inputState, setInputState] = useState("");
-	const [originalOptions, setOriginalOptions] = useState(mapDefaultOption(options));
+	const [originalOptions, setOriginalOptions] = useState(mapDefaultOption(options, field.value));
 
 	const { onOpen, onClose, isOpen } = useDisclosure();
 
@@ -153,7 +155,7 @@ export function RHFAutoComplete<T extends FieldValues>({
 
 	function handleClearAll() {
 		field.onChange([]);
-		setOriginalOptions(mapDefaultOption(options));
+		setOriginalOptions(mapDefaultOption(options, []));
 		onClose();
 		setInputState("");
 	}
