@@ -13,8 +13,9 @@ import { BookService } from "../../services/firebase/Book";
 import { SearchBookModal } from "@components/SearchBookModal";
 import { useToggle } from "react-use";
 import { DevTool } from "@hookform/devtools";
-import { Button, IconButton } from "@chakra-ui/react";
+import { Button, Collapse, Divider, IconButton } from "@chakra-ui/react";
 import { RHFTextArea } from "@components/Form/RHFTextArea";
+import { RHFAutoComplete } from "@components/Form/RHFAutoComplete";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -25,7 +26,9 @@ interface FormProps
 export function NewBookForm() {
 	const { addBook } = useBooks();
 	const [showDialog, toggleShowDialog] = useToggle(false);
+	const [showUnnecessaryFields, toggleShowUnnecessaryFields] = useToggle(false);
 	const [coverUrl, setCoverUrl] = useState("");
+
 	const { control, handleSubmit, register, resetField, watch, setValue } = useForm<FormProps>({
 		defaultValues: {
 			title: "",
@@ -45,6 +48,7 @@ export function NewBookForm() {
 
 	function handleResetCover() {
 		resetField("cover");
+		setCoverUrl("");
 	}
 
 	const onSubmit: SubmitHandler<FormProps> = async data => {
@@ -86,14 +90,13 @@ export function NewBookForm() {
 	return (
 		<>
 			<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
-				<Button onClick={toggleShowDialog}>Buscar livro</Button>
-				<RHFInput control={control} name="title" label="Título"></RHFInput>
-				<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
-				<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
+				<RHFInput control={control} name="title" label="Título" />
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
-				<RHFSelector options={[]} control={control} name="author" multiple></RHFSelector>
-				<RHFSelector options={[]} control={control} name="gender" multiple></RHFSelector>
-				<RHFTextArea control={control} name="description" label="Descrição" />
+				<RHFAutoComplete
+					options={["32", "teste"]}
+					control={control}
+					name="author"
+					label="Autores"></RHFAutoComplete>
 				<div className="flex gap-1 justify-between items-center">
 					<input
 						type="file"
@@ -102,7 +105,7 @@ export function NewBookForm() {
 					{!!cover && (
 						<IconButton
 							onClick={handleResetCover}
-							color="error"
+							colorScheme="red"
 							size="small"
 							aria-label={"button remove image"}>
 							<Icon icon="mdi:close-circle"></Icon>
@@ -114,7 +117,30 @@ export function NewBookForm() {
 						<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
 					</div>
 				)}
-				<Button type="submit">Salvar</Button>
+				<Divider />
+				<Button onClick={toggleShowUnnecessaryFields} variant="outline">
+					Preencher dados complementares
+				</Button>
+				<Collapse in={showUnnecessaryFields} animateOpacity>
+					<section className="grid grid-cols-1 gap-4">
+						<RHFInput control={control} name="isbn" label="ISBN"></RHFInput>
+						<RHFInput control={control} name="isbn13" label="ISBN13"></RHFInput>
+
+						<RHFSelector
+							options={[]}
+							control={control}
+							name="gender"
+							multiple></RHFSelector>
+						<RHFTextArea control={control} name="description" label="Descrição" />
+					</section>
+				</Collapse>
+				<Divider />
+				<footer className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+					<Button onClick={toggleShowDialog} colorScheme="blue">
+						Buscar livro
+					</Button>
+					<Button type="submit">Salvar</Button>
+				</footer>
 				<DevTool control={control} /> {/* set up the dev tool */}
 			</form>
 			<SearchBookModal
