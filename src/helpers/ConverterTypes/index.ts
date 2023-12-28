@@ -48,7 +48,7 @@ export function googleBookToLocalBooks(data: IGoogleBooksApi): Partial<Book> {
 		title: volumeInfo?.title,
 		description: volumeInfo?.description,
 		publisher: volumeInfo?.publisher,
-		publishDate: publishDate?.toDate(),
+		publishDate: publishDate?.toISOString(),
 		cover: {
 			ref: "",
 			url: imageUrlToUse,

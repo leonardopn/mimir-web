@@ -60,14 +60,14 @@ export function NewBookForm() {
 
 	const onSubmit: SubmitHandler<FormProps> = async data => {
 		const bookInDB = await BookService.newBook({
-			createdAt: new Date(),
-			updatedAt: new Date(),
+			createdAt: new Date().toISOString(),
+			updatedAt: new Date().toISOString(),
 			author: data.author,
 			description: data.description,
 			gender: data.gender,
 			isbn: data.isbn,
 			isbn13: data.isbn13,
-			publishDate: data.publishDate?.toDate() || null,
+			publishDate: data.publishDate?.toDate().toISOString() || null,
 			publisher: data.publisher,
 			readDate: null,
 			tags: data.tags,
@@ -79,7 +79,7 @@ export function NewBookForm() {
 		addBook(bookInDB);
 	};
 
-	function handleSetSearchedBookInForm(data: Partial<Book<"LOCAL">>) {
+	function handleSetSearchedBookInForm(data: Partial<Book>) {
 		console.log(data);
 		data.author && setValue("author", [...data.author]);
 		data.title && setValue("title", data.title);

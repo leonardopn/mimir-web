@@ -29,12 +29,12 @@ interface SearchBookStepperProps {
 export interface IStepComponentDefaultProps {
 	handleNextStep: () => void;
 	handlePreviousStep: () => void;
-	setBooks: Dispatch<SetStateAction<Partial<Book<"LOCAL">>[]>>;
-	setSelectedBook: Dispatch<SetStateAction<Partial<Book<"LOCAL">> | null>>;
+	setBooks: Dispatch<SetStateAction<Partial<Book>[]>>;
+	setSelectedBook: Dispatch<SetStateAction<Partial<Book> | null>>;
 	onConfirm: (data: Partial<Book>) => void;
 	onCloseModal: VoidFunction;
-	books: Partial<Book<"LOCAL">>[];
-	selectedBook: Partial<Book<"LOCAL">> | null;
+	books: Partial<Book>[];
+	selectedBook: Partial<Book> | null;
 }
 
 const steps = [

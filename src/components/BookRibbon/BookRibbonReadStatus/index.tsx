@@ -4,7 +4,7 @@ import { Tooltip } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 
 interface BookRibbonReadStatusProps {
-	readDate: Date | null;
+	readDate: string | null;
 }
 
 export function BookRibbonReadStatus({ readDate }: BookRibbonReadStatusProps) {

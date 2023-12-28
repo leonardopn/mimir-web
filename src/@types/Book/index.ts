@@ -1,5 +1,4 @@
 import { DefaultDoc } from "@typings/DefaultDoc";
-import { AppDate, InterfaceVariant } from "@typings/Firebase";
 
 export enum BookGender {
 	"Romance",
@@ -11,33 +10,24 @@ export enum BookGender {
 	"Infantil",
 	"Outros",
 }
-//TODO: Adicionar mais gêneros a BookGender
 
-export class Book<Variant extends InterfaceVariant = "LOCAL"> implements DefaultDoc<Variant> {
-	public id!: string;
-	public createdAt!: AppDate<Variant>;
-	public updatedAt!: AppDate<Variant>;
-	public title!: string;
-	public userId!: string;
-	public author!: string[];
-	public publisher!: string;
-	public gender!: BookGender[];
-	public publishDate!: AppDate<Variant> | null;
-	public description!: string;
-	public cover!: {
+export interface Book extends DefaultDoc {
+	id: string;
+	createdAt: string;
+	updatedAt: string;
+	title: string;
+	userId: string;
+	author: string[];
+	publisher: string;
+	gender: BookGender[];
+	publishDate: string | null;
+	description: string;
+	cover: {
 		url: string;
 		ref: string;
 	} | null;
-	public readDate!: AppDate<Variant> | null;
-	public tags!: string[];
-	public isbn!: string;
-	public isbn13!: string;
-
-	static fromDatabase(data: Book<"DB">): Book {
-		const defaultDoc = DefaultDoc.fromDatabase(data);
-		const readDate = data.readDate ? data.readDate.toDate() : null;
-		const publishDate = data.publishDate ? data.publishDate.toDate() : null;
-
-		return { ...data, ...defaultDoc, readDate, publishDate };
-	}
+	readDate: string | null;
+	tags: string[];
+	isbn: string;
+	isbn13: string;
 }
