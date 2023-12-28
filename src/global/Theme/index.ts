@@ -1,4 +1,4 @@
-import { extendTheme, withDefaultColorScheme, withDefaultProps } from "@chakra-ui/react";
+import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 
 export const theme = extendTheme(
 	{
@@ -34,6 +34,11 @@ export const theme = extendTheme(
 			Textarea: {
 				defaultProps: {
 					focusBorderColor: "primary.500",
+				},
+			},
+			Divider: {
+				baseStyle: {
+					borderColor: "gray.300",
 				},
 			},
 		},
