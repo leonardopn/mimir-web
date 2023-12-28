@@ -42,6 +42,7 @@
 		"Component: SearchBookStep3",
 		"Component: RHFTextArea",
 		"Component: RHFAutoComplete",
-		"Component: CoverArea"
+		"Component: CoverArea",
+		"Component: BookCoverDefault"
 	]
 }
