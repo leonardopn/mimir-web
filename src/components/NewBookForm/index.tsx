@@ -1,23 +1,21 @@
 "use client";
 
+import { Button, Card, Collapse, Divider } from "@chakra-ui/react";
+import { RHFAutoComplete } from "@components/Form/RHFAutoComplete";
 import { RHFInput } from "@components/Form/RHFInput";
-import { RHFSelector } from "@components/Form/RHFSelector";
+import { RHFTextArea } from "@components/Form/RHFTextArea";
+import { SearchBookModal } from "@components/SearchBookModal";
+import { DevTool } from "@hookform/devtools";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useBooks } from "@hooks/useBooks";
-import { Icon } from "@iconify/react";
 import { Book } from "@typings/Book";
 import { Dayjs } from "dayjs";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { BookService } from "../../services/firebase/Book";
-import { SearchBookModal } from "@components/SearchBookModal";
 import { useToggle } from "react-use";
-import { DevTool } from "@hookform/devtools";
-import { Button, Collapse, Divider, IconButton } from "@chakra-ui/react";
-import { RHFTextArea } from "@components/Form/RHFTextArea";
-import { RHFAutoComplete } from "@components/Form/RHFAutoComplete";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { CoverArea } from "./CoverArea";
 
 interface FormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
@@ -27,6 +25,12 @@ interface FormProps
 
 const FormSchema = z.object({
 	title: z.string().min(1),
+	publisher: z.string().min(1),
+	author: z.array(z.string().min(1)).min(1),
+	cover: z
+		.object({ item: z.function().args(z.number()) })
+		.optional()
+		.or(z.null()),
 });
 
 export function NewBookForm() {
@@ -59,7 +63,7 @@ export function NewBookForm() {
 	}
 
 	const onSubmit: SubmitHandler<FormProps> = async data => {
-		const bookInDB = await BookService.newBook({
+		const dataToCreate = {
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString(),
 			author: data.author,
@@ -74,9 +78,12 @@ export function NewBookForm() {
 			title: data.title,
 			cover: data.cover?.item(0) || null,
 			userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
-		});
+		};
 
-		addBook(bookInDB);
+		console.log(dataToCreate);
+		// const bookInDB = await BookService.newBook();
+
+		// addBook(bookInDB);
 	};
 
 	function handleSetSearchedBookInForm(data: Partial<Book>) {
@@ -95,8 +102,11 @@ export function NewBookForm() {
 	}, [cover]);
 
 	return (
-		<>
-			<form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit(onSubmit)}>
+		<form className="grid grid-cols-1 gap-4 sm:grid-cols-3 w-full">
+			<CoverArea />
+			<Card
+				className="p-4 flex flex-col gap-3 sm:col-span-2"
+				onSubmit={handleSubmit(onSubmit)}>
 				<RHFInput control={control} name="title" label="Título" />
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
 				<RHFAutoComplete
@@ -106,21 +116,6 @@ export function NewBookForm() {
 					freeSolo
 					label="Autores"
 				/>
-				<div className="flex gap-1 justify-between items-center">
-					<input
-						type="file"
-						accept="image/png, image/jpeg"
-						{...register("cover")}></input>
-					{!!cover && (
-						<IconButton
-							onClick={handleResetCover}
-							colorScheme="red"
-							size="small"
-							aria-label={"button remove image"}>
-							<Icon icon="mdi:close-circle"></Icon>
-						</IconButton>
-					)}
-				</div>
 				{!!coverUrl && (
 					<div className="flex justify-center items-center">
 						<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
@@ -147,11 +142,11 @@ export function NewBookForm() {
 					<Button type="submit">Salvar</Button>
 				</footer>
 				<DevTool control={control} /> {/* set up the dev tool */}
-			</form>
+			</Card>
 			<SearchBookModal
 				isOpen={showDialog}
 				onConfirm={handleSetSearchedBookInForm}
 				onClose={() => toggleShowDialog(false)}></SearchBookModal>
-		</>
+		</form>
 	);
 }
