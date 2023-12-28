@@ -16,8 +16,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useToggle } from "react-use";
 import { z } from "zod";
 import { CoverArea } from "./CoverArea";
+import FormProvider from "../../providers/FormProvider";
 
-interface FormProps
+export interface NewBookFormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
 	publishDate: Dayjs | null;
 	cover: FileList | null;
@@ -39,7 +40,7 @@ export function NewBookForm() {
 	const [showUnnecessaryFields, toggleShowUnnecessaryFields] = useToggle(false);
 	const [coverUrl, setCoverUrl] = useState("");
 
-	const { control, handleSubmit, register, resetField, watch, setValue } = useForm<FormProps>({
+	const methods = useForm<NewBookFormProps>({
 		defaultValues: {
 			title: "",
 			description: "",
@@ -55,6 +56,8 @@ export function NewBookForm() {
 		resolver: zodResolver(FormSchema),
 	});
 
+	const { control, handleSubmit, resetField, watch, setValue } = methods;
+
 	const cover = watch("cover");
 
 	function handleResetCover() {
@@ -62,7 +65,7 @@ export function NewBookForm() {
 		setCoverUrl("");
 	}
 
-	const onSubmit: SubmitHandler<FormProps> = async data => {
+	const onSubmit: SubmitHandler<NewBookFormProps> = async data => {
 		const dataToCreate = {
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString(),
@@ -102,10 +105,10 @@ export function NewBookForm() {
 	}, [cover]);
 
 	return (
-		<form className="grid grid-cols-1 gap-4 sm:grid-cols-3 w-full">
+		<FormProvider className="grid grid-cols-1 gap-4 lg:grid-cols-3 w-full" methods={methods}>
 			<CoverArea />
 			<Card
-				className="p-4 flex flex-col gap-3 sm:col-span-2"
+				className="p-4 flex flex-col gap-3 lg:col-span-2 h-fit"
 				onSubmit={handleSubmit(onSubmit)}>
 				<RHFInput control={control} name="title" label="Título" />
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
@@ -141,12 +144,12 @@ export function NewBookForm() {
 					</Button>
 					<Button type="submit">Salvar</Button>
 				</footer>
-				<DevTool control={control} /> {/* set up the dev tool */}
+				<DevTool control={control} />
 			</Card>
 			<SearchBookModal
 				isOpen={showDialog}
 				onConfirm={handleSetSearchedBookInForm}
 				onClose={() => toggleShowDialog(false)}></SearchBookModal>
-		</form>
+		</FormProvider>
 	);
 }
