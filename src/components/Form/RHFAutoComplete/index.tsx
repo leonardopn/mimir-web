@@ -172,6 +172,11 @@ export function RHFAutoComplete<T extends FieldValues>({
 		);
 	}, [inputState, originalOptions]);
 
+	function handleInputOnBlur() {
+		field.onBlur();
+		onClose();
+	}
+
 	return (
 		<FormControl isRequired={isRequired} isInvalid={!!error}>
 			{!!label && <FormLabel>{label}</FormLabel>}
@@ -185,6 +190,11 @@ export function RHFAutoComplete<T extends FieldValues>({
 						onKeyUp={handleAddRemoveOptionByKeyUp}
 						onKeyDown={handleKeyDown}
 						isInvalid={!!error}
+						ref={field.ref}
+						onBlur={handleInputOnBlur}
+						name={name}
+						onFocus={onOpen}
+						isDisabled={field.disabled || restProps.isDisabled}
 					/>
 					{!!value.length && clearable && (
 						<InputRightElement>
@@ -201,7 +211,9 @@ export function RHFAutoComplete<T extends FieldValues>({
 					)}
 				</InputGroup>
 				<ScaleFade in={isOpen} className={ScaleTransitionStyle({ isOpen })}>
-					<div className="border border-solid rounded-md bg-white mt-2 w-full overflow-auto max-h-60">
+					<div
+						className="border border-solid rounded-md bg-white mt-2 w-full overflow-auto max-h-60"
+						onFocus={onOpen}>
 						{!filteredOptions.length && <EmptyOption />}
 						{filteredOptions.map(option => {
 							return (
