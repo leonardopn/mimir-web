@@ -43,6 +43,7 @@
 		"Component: RHFTextArea",
 		"Component: RHFAutoComplete",
 		"Component: CoverArea",
-		"Component: BookCoverDefault"
+		"Component: BookCoverDefault",
+		"Provider: FormProvider"
 	]
 }
