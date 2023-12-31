@@ -31,7 +31,15 @@ export function BooksPageList({}: BooksPageListProps) {
 		<div className="flex flex-col w-full gap-8">
 			<main className="flex gap-8 flex-wrap justify-center w-full">
 				{filteredBooks.map(book => (
-					<BookCover data={book} alt={book.title + " cover"} key={book.id}></BookCover>
+					<BookCover
+						id={book.id}
+						readDate={book.readDate}
+						title={book.title}
+						publisher={book.publisher}
+						src={book.cover?.url}
+						alt={book.title + " cover"}
+						key={book.id}
+					/>
 				))}
 			</main>
 		</div>

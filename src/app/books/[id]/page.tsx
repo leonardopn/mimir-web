@@ -31,7 +31,14 @@ export default function BookView({ params: { id } }: BookViewProps) {
 			</header>
 			<main className="flex flex-col lg:flex-row gap-5 justify-center items-center lg:items-start flex-wrap  ">
 				<div className="lg:sticky lg:top-24 h-fit w-fit">
-					<BookCover data={foundBook} disableLink />
+					<BookCover
+						disableLink
+						id={foundBook.id}
+						readDate={foundBook.readDate}
+						title={foundBook.title}
+						publisher={foundBook.publisher}
+						src={foundBook.cover?.url}
+					/>
 				</div>
 				<Card className="p-5 rounded-xl shadow-xl flex-1 flex flex-col gap-5 text-gray-800 min-h-[400px] justify-between w-full">
 					<header className="relative pr-10">
