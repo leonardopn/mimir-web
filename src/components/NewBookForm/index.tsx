@@ -105,11 +105,12 @@ export function NewBookForm() {
 	}, [cover]);
 
 	return (
-		<FormProvider className="grid grid-cols-1 gap-4 lg:grid-cols-3 w-full" methods={methods}>
+		<FormProvider
+			className="grid grid-cols-1 gap-4 lg:grid-cols-3 w-full"
+			methods={methods}
+			onSubmit={handleSubmit(onSubmit)}>
 			<CoverArea />
-			<Card
-				className="p-4 flex flex-col gap-3 lg:col-span-2 h-fit"
-				onSubmit={handleSubmit(onSubmit)}>
+			<Card className="p-4 flex flex-col gap-3 lg:col-span-2 h-fit">
 				<RHFInput control={control} name="title" label="Título" />
 				<RHFInput control={control} name="publisher" label="Editora"></RHFInput>
 				<RHFAutoComplete
