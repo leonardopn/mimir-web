@@ -44,6 +44,7 @@
 		"Component: RHFAutoComplete",
 		"Component: CoverArea",
 		"Component: BookCoverDefault",
-		"Provider: FormProvider"
+		"Provider: FormProvider",
+		"Type: Firebase"
 	]
 }
