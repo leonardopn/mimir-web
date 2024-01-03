@@ -1,4 +1,5 @@
 import { DefaultDoc } from "@typings/DefaultDoc";
+import { StorageFile } from "@typings/Firebase";
 
 export enum BookGender {
 	"Romance",
@@ -13,21 +14,18 @@ export enum BookGender {
 
 export interface Book extends DefaultDoc {
 	id: string;
-	createdAt: string;
-	updatedAt: string;
-	title: string;
 	userId: string;
-	author: string[];
+	title: string;
 	publisher: string;
-	gender: BookGender[];
-	publishDate: string | null;
-	description: string;
-	cover: {
-		url: string;
-		ref: string;
-	} | null;
-	readDate: string | null;
-	tags: string[];
-	isbn: string;
-	isbn13: string;
+	author: string[];
+
+	//NOTE: Optionals
+	gender?: BookGender[];
+	publishDate?: string;
+	description?: string;
+	cover?: StorageFile;
+	readDate?: string;
+	tags?: string[];
+	isbn?: string;
+	isbn13?: string;
 }

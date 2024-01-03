@@ -10,35 +10,30 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useBooks } from "@hooks/useBooks";
 import { Book } from "@typings/Book";
 import { Dayjs } from "dayjs";
-import Image from "next/image";
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useToggle } from "react-use";
 import { z } from "zod";
-import { CoverArea } from "./CoverArea";
 import FormProvider from "../../providers/FormProvider";
+import { BookService, INewBookData } from "../../services/firebase/Book";
+import { CoverArea } from "./CoverArea";
 
 export interface NewBookFormProps
 	extends Omit<Book, "id" | "createdAt" | "updatedAt" | "readDate" | "publishDate" | "cover"> {
-	publishDate: Dayjs | null;
-	cover: FileList | null;
+	publishDate?: Dayjs;
+	cover: File | null;
 }
 
 const FormSchema = z.object({
 	title: z.string().min(1),
 	publisher: z.string().min(1),
 	author: z.array(z.string().min(1)).min(1),
-	cover: z
-		.object({ item: z.function().args(z.number()) })
-		.optional()
-		.or(z.null()),
+	cover: z.any().optional(),
 });
 
 export function NewBookForm() {
 	const { addBook } = useBooks();
 	const [showDialog, toggleShowDialog] = useToggle(false);
 	const [showUnnecessaryFields, toggleShowUnnecessaryFields] = useToggle(false);
-	const [coverUrl, setCoverUrl] = useState("");
 
 	const methods = useForm<NewBookFormProps>({
 		defaultValues: {
@@ -49,24 +44,17 @@ export function NewBookForm() {
 			gender: [],
 			isbn: "",
 			isbn13: "",
-			publishDate: null,
+			publishDate: "",
 			publisher: "",
 			tags: [],
 		},
 		resolver: zodResolver(FormSchema),
 	});
 
-	const { control, handleSubmit, resetField, watch, setValue } = methods;
-
-	const cover = watch("cover");
-
-	function handleResetCover() {
-		resetField("cover");
-		setCoverUrl("");
-	}
+	const { control, handleSubmit, reset, setValue } = methods;
 
 	const onSubmit: SubmitHandler<NewBookFormProps> = async data => {
-		const dataToCreate = {
+		const dataToCreate: INewBookData = {
 			createdAt: new Date().toISOString(),
 			updatedAt: new Date().toISOString(),
 			author: data.author,
@@ -74,19 +62,17 @@ export function NewBookForm() {
 			gender: data.gender,
 			isbn: data.isbn,
 			isbn13: data.isbn13,
-			publishDate: data.publishDate?.toDate().toISOString() || null,
+			publishDate: data.publishDate?.toDate().toISOString(),
 			publisher: data.publisher,
-			readDate: null,
 			tags: data.tags,
 			title: data.title,
-			cover: data.cover?.item(0) || null,
+			cover: data.cover,
 			userId: "NtmnrIyP6NgiFn90i9TfLfOqegu1",
 		};
 
-		console.log(dataToCreate);
-		// const bookInDB = await BookService.newBook();
-
-		// addBook(bookInDB);
+		const bookInDB = await BookService.newBook(dataToCreate);
+		addBook(bookInDB);
+		reset();
 	};
 
 	function handleSetSearchedBookInForm(data: Partial<Book>) {
@@ -94,15 +80,6 @@ export function NewBookForm() {
 		data.author && setValue("author", [...data.author]);
 		data.title && setValue("title", data.title);
 	}
-
-	useEffect(() => {
-		if (cover) {
-			const file = cover.item(0);
-			file && setCoverUrl(URL.createObjectURL(file));
-		} else {
-			setCoverUrl("");
-		}
-	}, [cover]);
 
 	return (
 		<FormProvider
@@ -120,11 +97,6 @@ export function NewBookForm() {
 					freeSolo
 					label="Autores"
 				/>
-				{!!coverUrl && (
-					<div className="flex justify-center items-center">
-						<Image src={coverUrl} width={300} height={500} alt="book cover"></Image>
-					</div>
-				)}
 				<Divider />
 				<Button onClick={toggleShowUnnecessaryFields} variant="outline">
 					Preencher dados complementares

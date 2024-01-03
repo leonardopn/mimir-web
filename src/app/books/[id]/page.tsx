@@ -49,7 +49,7 @@ export default function BookView({ params: { id } }: BookViewProps) {
 							{foundBook.author.join(", ")}
 						</Heading>
 
-						{!!foundBook.gender.length && (
+						{!!foundBook?.gender?.length && (
 							<div className="flex flex-wrap gap-2 mt-2">
 								{foundBook.gender.map((gender, index) => (
 									<Tag key={index}>{BookGender[gender]}</Tag>
