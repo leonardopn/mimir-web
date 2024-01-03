@@ -2,7 +2,7 @@ import { Button, Card, IconButton } from "@chakra-ui/react";
 import { BookCover } from "@components/BookCover";
 import { Icon } from "@iconify/react";
 import { useRef, useState } from "react";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useController, useWatch } from "react-hook-form";
 import { NewBookFormProps } from "..";
 
 interface CoverAreaProps {}
@@ -10,8 +10,11 @@ interface CoverAreaProps {}
 export function CoverArea({}: CoverAreaProps) {
 	const { title, publisher } = useWatch<NewBookFormProps>();
 	const inputFileRef = useRef<HTMLInputElement | null>(null);
-	const { register } = useFormContext<NewBookFormProps>();
 	const [imageSrc, setImageSrc] = useState("");
+
+	const {
+		field: { onChange: onBookCoverChange },
+	} = useController<NewBookFormProps>({ name: "cover" });
 
 	function handleChangeCover() {
 		const file = inputFileRef.current?.files?.item(0);
@@ -30,6 +33,8 @@ export function CoverArea({}: CoverAreaProps) {
 			inputFileRef.current.files = null;
 			inputFileRef.current.value = "";
 		}
+
+		onBookCoverChange(file || null);
 	}
 
 	function handleOpenFileDialog() {
@@ -37,6 +42,7 @@ export function CoverArea({}: CoverAreaProps) {
 	}
 
 	function handleRemoveSrc() {
+		onBookCoverChange(null);
 		setImageSrc(oldState => {
 			URL.revokeObjectURL(oldState);
 			return "";
