@@ -2,8 +2,9 @@ import { Book } from "@typings/Book";
 
 import FirebaseService from "..";
 import { v4 } from "uuid";
+import { omitUndefinedProps } from "toolkit-extra/object";
 
-interface INewBookData extends Omit<Book, "id" | "cover"> {
+export interface INewBookData extends Omit<Book, "id" | "cover"> {
 	cover: File | null;
 }
 export class BookService extends FirebaseService {
@@ -12,7 +13,7 @@ export class BookService extends FirebaseService {
 
 		const { cover, ...dataRest } = data;
 
-		const bookToAdd: Book = { ...dataRest, id: newDoc.id, cover: null };
+		const bookToAdd: Book = omitUndefinedProps({ ...dataRest, id: newDoc.id });
 
 		if (cover) {
 			const uploadedFile = await this.uploadFirebaseFile(
